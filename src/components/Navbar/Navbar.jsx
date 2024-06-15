@@ -1,29 +1,28 @@
+import { Link } from 'react-router-dom';
 export default function Navbar() {
 	return (
 		<nav className="w-full flex p-4 justify-between max-w-[1300px] mx-auto items-center">
-			<a className="font-semibold text-xl">dev_snake</a>
+			<Link to={'/'} className="font-semibold text-xl">
+				dev_snake
+			</Link>
 			<ul className="hidden md:flex gap-2">
 				<li>
-					<a routerLink="" className="p-4 text-[1rem] font-semibold">
+					<Link to={'/'} className="p-4 text-[1rem] font-semibold">
 						Trang chủ
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a routerLink="/products" className="p-4 text-[1rem] font-semibold">
-						Sản phẩm
-					</a>
+					<Link className="p-4 text-[1rem] font-semibold">Sản phẩm</Link>
 				</li>
 				<li>
-					<a routerLink="/ranking" className="p-4 text-[1rem] font-semibold">
-						Xếp hạng
-					</a>
+					<Link className="p-4 text-[1rem] font-semibold">Xếp hạng</Link>
 				</li>
 			</ul>
 			<div>
 				<i className="bx bx-search p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"></i>
-				<a routerLink="cart">
+				<Link>
 					<i className="bx bx-cart-alt p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"></i>
-				</a>
+				</Link>
 				<i className="bx bx-user p-2 bg-[#eee] rounded-xl font-medium hover:cursor-pointer"></i>
 			</div>
 		</nav>
