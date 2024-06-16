@@ -1,17 +1,28 @@
+import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home/Home';
+import Products from '../pages/Products/Products';
+import Ranking from '../pages/Rank/Ranking';
 import NotFound from '../pages/NotFound/NotFound';
-import About from '../pages/About/About';
-export const publicRoutes = [
+export const router = createBrowserRouter([
 	{
 		path: '/',
-		component: Home
+		element: <Home />,
+		children: []
 	},
 	{
-		path: 'about-me',
-		component: About
+		path: 'products',
+		element: <Products />
+	},
+	{
+		path: 'products/:slug',
+		element: <Home />
+	},
+	{
+		path: 'ranking',
+		element: <Ranking />
 	},
 	{
 		path: '*',
-		component: NotFound
+		element: <NotFound />
 	}
-];
+]);
