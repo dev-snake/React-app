@@ -1,19 +1,24 @@
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { router } from './routes/route';
 function App() {
 	// console.log(router);
 	return (
-		<BrowserRouter>
+		<Router>
 			<Header />
 			<Routes>
-				{router.routes.map(({ path, element, id, children }) => (
-					<Route path={path} element={element} key={id} />
+				{router.routes.map(({ path, element, children }) => (
+					<Route path={path} element={element} key={path}>
+						{children &&
+							children.map(({ path, element }) => (
+								<Route path={path} element={element} key={path} />
+							))}
+					</Route>
 				))}
 			</Routes>
 			<Footer />
-		</BrowserRouter>
+		</Router>
 	);
 }
 
