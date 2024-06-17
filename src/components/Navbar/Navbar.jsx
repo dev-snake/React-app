@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
 	const [isShow, setIsShow] = useState(false);
+	const [isFormVisible, setIsFormVisible] = useState(false);
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY > 0) {
@@ -14,12 +15,37 @@ export default function Navbar() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
+
+	useEffect(() => {
+		const boxUser = document.querySelector('.bx-user');
+
+		const handleMouseEnter = () => {
+			setIsFormVisible(true);
+			setIsShow(false);
+		};
+
+		const handleMouseLeave = () => {
+			const timeoutId = setTimeout(() => {
+				setIsFormVisible(false);
+			}, 1000);
+			return () => clearTimeout(timeoutId);
+		};
+
+		boxUser.addEventListener('mouseenter', handleMouseEnter);
+		boxUser.addEventListener('mouseleave', handleMouseLeave);
+
+		return () => {
+			boxUser.removeEventListener('mouseenter', handleMouseEnter);
+			boxUser.removeEventListener('mouseleave', handleMouseLeave);
+		};
+	}, []);
+
 	const toggleShow = () => {
 		setIsShow(!isShow);
 	};
-	console.log(isShow);
+
 	return (
-		<nav className="w-full flex p-4 justify-between max-w-[1300px] mx-auto items-center">
+		<nav className="w-full flex p-4 justify-between max-w-[1300px] mx-auto items-center ">
 			<Link to="/" className="font-semibold text-xl">
 				dev_snake
 			</Link>
@@ -53,11 +79,23 @@ export default function Navbar() {
 				</Link>
 			</div>
 			{/* form show auths */}
-			<div className="absolute right-0 bg-white top-20 p-4 rounded-md z-[100] hidden shadow-md transition-all duration-300">
-				<a className="block px-2 py-1 mb-1 capitalize font-semibold tracking-[1.6px]">
-					Đăng Nhập
-				</a>
-				<a className="block px-2 py-1 capitalize font-semibold tracking-[1.6px]">Đăng kí</a>
+			<div
+				className={`absolute right-0 bg-white top-24 p-2 border-2 z-[100] rounded-[4px] mr-[310px]
+				before:content-[''] before:absolute before:triangle-up transition-opacity duration-300 ${
+					isFormVisible ? 'opacity-100' : 'opacity-0'
+				}`}
+			>
+				<p className="text-[14px] p-2 font-semibold ">
+					<i className="fa-solid fa-hands-clapping mr-1"></i> Xin chào, Vui lòng đăng nhập
+				</p>
+				<div className="w-full grid grid-cols-2 gap-2 p-2  ">
+					<button className="p-1 capitalize  tracking-[1.6px] text-[14px] font-medium bg-blue-500 text-white rounded-sm ">
+						Đăng Nhập
+					</button>
+					<button className="p-1 capitalize  tracking-[1.6px] text-[14px] font-medium border-2 border-blue-500 rounded-sm">
+						Đăng kí
+					</button>
+				</div>
 			</div>
 			{/* Input Search */}
 			<div

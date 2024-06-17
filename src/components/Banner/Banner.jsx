@@ -2,8 +2,8 @@ import keyboardImage from '../../assets/images/keyboard1.png';
 import bannerGreen from '../../assets/images/banner.png';
 export default function Banner() {
 	return (
-		<section className="max-w-[1300px] mx-auto max-xl:p-2 transition-all duration-200 ease-linear">
-			<div className="w-full h-[500px] rounded-2xl max-sm:p-4">
+		<section className="max-w-[1300px] mx-auto max-xl:p-2 ">
+			<div className="w-full h-[500px] rounded-2xl max-sm:p-4 mt-20">
 				<img
 					src={keyboardImage}
 					alt="errr"
