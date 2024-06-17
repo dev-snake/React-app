@@ -8,10 +8,15 @@ import Login from '../pages/auth/Login/Login';
 import Register from '../pages/auth/Register/Register';
 import ChangePassword from '../pages/Profile/ChangePw/ChangePassword';
 import UserInfor from '../pages/Profile/UserInfor/UserInfor';
+import PageDetail from '../pages/PgDetail/Detail';
 export const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />
+	},
+	{
+		path: ':productId',
+		element: <PageDetail />
 	},
 	{
 		path: 'products',
@@ -19,7 +24,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'products/:productId',
-		element: <Home />
+		element: <PageDetail />
 	},
 	{
 		path: 'ranking',

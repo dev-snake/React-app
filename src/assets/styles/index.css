@@ -6,6 +6,9 @@
 * {
 	font-family: 'Quicksand', sans-serif;
 }
+body {
+	margin-top: 60px;
+}
 @layer utilities {
 	.triangle-up {
 		content: '';
