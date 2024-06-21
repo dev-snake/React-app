@@ -6,9 +6,7 @@
 * {
 	font-family: 'Quicksand', sans-serif;
 }
-body {
-	margin-top: 60px;
-}
+
 @layer utilities {
 	.triangle-up {
 		content: '';
@@ -19,5 +17,13 @@ body {
 		border-left: 10px solid transparent;
 		border-right: 10px solid transparent;
 		border-bottom: 10px solid #ffffff;
+	}
+}
+@layer base {
+	body {
+		margin-top: 60px;
+	}
+	h1 {
+		@apply text-[1rem];
 	}
 }

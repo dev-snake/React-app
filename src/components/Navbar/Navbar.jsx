@@ -70,7 +70,7 @@ export default function Navbar() {
 					className="bx bx-search p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"
 					onClick={toggleShow}
 				></i>
-				<Link to="/#">
+				<Link to="/cart">
 					<i className="bx bx-cart-alt p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"></i>
 				</Link>
 				<Link to="/#">

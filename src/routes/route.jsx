@@ -9,6 +9,7 @@ import Register from '../pages/auth/Register/Register';
 import ChangePassword from '../pages/Profile/ChangePw/ChangePassword';
 import UserInfor from '../pages/Profile/UserInfor/UserInfor';
 import PageDetail from '../pages/PgDetail/Detail';
+import Cart from '../pages/Cart/Cart';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
 	{
 		path: 'ranking',
 		element: <Ranking />
+	},
+	{
+		path: 'cart',
+		element: <Cart />
 	},
 	{
 		path: 'auth/login',
