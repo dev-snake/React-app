@@ -3,9 +3,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-	font-family: 'Quicksand', sans-serif;
-}
 
 @layer utilities {
 	.triangle-up {
@@ -22,8 +19,9 @@
 @layer base {
 	body {
 		margin-top: 60px;
+		font-family: 'Quicksand', sans-serif;
 	}
-	h1 {
-		@apply text-[1rem];
-	}
+}
+h1 {
+	@apply text-[1rem];
 }
