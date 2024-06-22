@@ -20,7 +20,7 @@ export default function ApplyVoucher() {
 							isShow ? 'rotate-180' : 'rotate-0'
 						}`}
 					>
-						<i className="fa-solid fa-angle-down w-3"></i>
+						<i className="fa-solid fa-angle-down w-3" onClick={handleClickShow}></i>
 					</div>
 				</div>
 				<div className="mt-4">
@@ -41,7 +41,7 @@ export default function ApplyVoucher() {
 							<strong className="text-[14px]">40.000₫</strong>
 						</div>
 						<div className="flex justify-between mt-2">
-							<span className="text-[18px] font-semibold">Tổng tiền :</span>{' '}
+							<span className="text-[18px] font-semibold">Tổng tiền :</span>
 							<strong className="text-[20px]">40.000₫</strong>
 						</div>
 						<div className="mt-2">

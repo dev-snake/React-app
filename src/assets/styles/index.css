@@ -25,3 +25,10 @@
 h1 {
 	@apply text-[1rem];
 }
+.form-input:focus + .form-field,
+.form-input:not(:placeholder-shown) + .form-field {
+	background-color: #ffffff;
+	transform: translateY(-50%);
+	font-size: 14px;
+	color: #999;
+}
