@@ -10,6 +10,8 @@ import ChangePassword from '../pages/Profile/ChangePw/ChangePassword';
 import UserInfor from '../pages/Profile/UserInfor/UserInfor';
 import PageDetail from '../pages/PgDetail/Detail';
 import Cart from '../pages/Cart/Cart';
+import CartInfor from '../pages/Cart/cart-infor/CartInfor';
+import CartContainer from '../pages/Cart/cart-container/CartContainer';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -33,7 +35,17 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'cart',
-		element: <Cart />
+		element: <Cart />,
+		children: [
+			{
+				path: 'cart-infor-order-box',
+				element: <CartInfor />
+			},
+			{
+				path: 'cart-item',
+				element: <CartContainer />
+			}
+		]
 	},
 	{
 		path: 'auth/login',

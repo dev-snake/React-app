@@ -3,11 +3,12 @@ import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { router } from './routes/route';
 function App() {
+	const { routes } = router;
 	return (
 		<Router>
 			<Header />
 			<Routes>
-				{router.routes.map(({ path, element, children }) => (
+				{routes.map(({ path, element, children }) => (
 					<Route path={path} element={element} key={path}>
 						{children &&
 							children.map(({ path, element }) => (
