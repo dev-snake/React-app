@@ -8,6 +8,7 @@ const db = require('./Config/db');
 const port = 3000;
 route(app);
 db.ConnectDb();
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

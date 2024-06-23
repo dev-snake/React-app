@@ -2,6 +2,8 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { router } from './routes/route';
+import axios from 'axios';
+import { useEffect } from 'react';
 function App() {
 	const { routes } = router;
 	return (
