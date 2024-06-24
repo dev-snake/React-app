@@ -19,19 +19,18 @@ export default function Footer() {
 						<p className="uppercase font-semibold mt-2 mb-2 text-xl">
 							Thông tin và chính sách
 						</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
+						<p className="leading-8">Chính sách bảo hành</p>
+						<p className="leading-8">Chính sách đổi trả</p>
+						<p className="leading-8">Chính sách khác</p>
 					</div>
 					<div className="mt-2">
 						<p className="uppercase font-semibold mt-2 mb-2 text-xl">
 							dịch vụ cửa hàng
 						</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
-						<p className="leading-8">Lorem ipsum dolor, sit amet cons</p>
+						<p className="leading-8">Chính sách giao hàng</p>
+						<p className="leading-8">Chính sách bảo hành</p>
+						<p className="leading-8">Chính sách bảo mật</p>
+						<p className="leading-8">Tra cứu địa chỉ bảo hành</p>
 					</div>
 					<div className="mt-2">
 						<p className="uppercase font-semibold mt-2 mb-2 text-xl">

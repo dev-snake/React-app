@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
-import { API_ADDRESS } from '../service/api/API';
+import { API } from '../service/api/API';
 export const useAddressData = () => {
 	const [data, setData] = useState({ provinces: [], districts: [], wards: [] });
 	const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +8,7 @@ export const useAddressData = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`${API_ADDRESS.PROVINCES}`);
+				const response = await axios.get(`${API.ADDRESS.PROVINCES}`);
 				setData((prev) => ({ ...prev, provinces: response.data.results }));
 			} catch (error) {
 				setError(error);
@@ -20,7 +20,7 @@ export const useAddressData = () => {
 	}, []);
 	const fetchDistricts = useCallback(async (provinceId) => {
 		try {
-			const response = await axios.get(`${API_ADDRESS.DISTRICTS}/${provinceId}`);
+			const response = await axios.get(`${API.ADDRESS.DISTRICTS}/${provinceId}`);
 			setData((prev) => ({ ...prev, districts: response.data.results, wards: [] }));
 		} catch (err) {
 			setError(err.message);
@@ -29,7 +29,7 @@ export const useAddressData = () => {
 
 	const fetchWards = useCallback(async (districtId) => {
 		try {
-			const response = await axios.get(`${API_ADDRESS.WARDS}/${districtId}`);
+			const response = await axios.get(`${API.ADDRESS.WARDS}/${districtId}`);
 			setData((prev) => ({ ...prev, wards: response.data.results }));
 		} catch (err) {
 			setError(err.message);

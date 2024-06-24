@@ -12,7 +12,7 @@ export default function ApplyVoucher() {
 			<div>
 				<div className="text-blue-500 inline-block p-2 border-[1px] rounded-md cursor-pointer">
 					<i className="fa-solid fa-ticket mr-2 "></i>
-					<span className="font-medium mr-2" onClick={handleClickShow}>
+					<span className="font-medium mr-2 select-none" onClick={handleClickShow}>
 						Sử dụng mã giảm giá
 					</span>
 					<div

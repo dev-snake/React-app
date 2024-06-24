@@ -1,8 +1,12 @@
-const BASE_URL = '';
-const API_URLS = {};
-const API_ADDRESS = {
-	PROVINCES: 'https://vapi.vnappmob.com/api/province/',
-	DISTRICTS: 'https://vapi.vnappmob.com/api/province/district',
-	WARDS: 'https://vapi.vnappmob.com/api/province/ward'
+import { BASE_URL } from '../../utils/apiUrl';
+const API = {
+	ADDRESS: {
+		PROVINCES: 'https://vapi.vnappmob.com/api/province/',
+		DISTRICTS: 'https://vapi.vnappmob.com/api/province/district',
+		WARDS: 'https://vapi.vnappmob.com/api/province/ward'
+	},
+	PRODUCTS: `${BASE_URL}/products`,
+	USERS: `${BASE_URL}/users`,
+	CATEGORIES: ''
 };
-export { API_URLS, API_ADDRESS };
+export { API };
