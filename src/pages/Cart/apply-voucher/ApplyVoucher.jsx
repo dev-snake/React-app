@@ -1,6 +1,6 @@
 import { useState, Fragment } from 'react';
 import ImageSale from '../../../assets/images/saleVoucher.png';
-
+import ButtonPayment from '../ButtonPayment/ButtonPayment';
 export default function ApplyVoucher() {
 	const [isShow, setIsShow] = useState(false);
 	const handleClickShow = () => {
@@ -34,22 +34,7 @@ export default function ApplyVoucher() {
 					>
 						<FormVoucher />
 					</div>
-					<hr className="mt-4" />
-					<div className="mt-4">
-						<div className="flex justify-between">
-							<span className="text-[1rem] font-semibold">Phí vận chuyển :</span>
-							<strong className="text-[14px]">40.000₫</strong>
-						</div>
-						<div className="flex justify-between mt-2">
-							<span className="text-[18px] font-semibold">Tổng tiền :</span>
-							<strong className="text-[20px]">40.000₫</strong>
-						</div>
-						<div className="mt-2">
-							<button className="bg-blue-500 text-white w-full py-4 rounded-[4px] text-[18px] font-semibold tracking-[1.6px]">
-								Đặt hàng ngay
-							</button>
-						</div>
-					</div>
+					<ButtonPayment />
 				</div>
 			</div>
 		</div>

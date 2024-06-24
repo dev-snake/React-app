@@ -12,6 +12,7 @@ import PageDetail from '../pages/PgDetail/Detail';
 import Cart from '../pages/Cart/Cart';
 import CartInfor from '../pages/Cart/cart-infor/CartInfor';
 import CartContainer from '../pages/Cart/cart-container/CartContainer';
+import Payment from '../pages/Cart/payment/Payment';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'cart-item',
 				element: <CartContainer />
+			},
+			{
+				path: 'payment',
+				element: <Payment />
 			}
 		]
 	},

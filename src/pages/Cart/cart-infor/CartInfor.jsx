@@ -81,23 +81,20 @@ function OrderAddress() {
 		const provinceId = event.target.value;
 		fetchDistricts(provinceId);
 	};
-
 	const handleDistrictChange = (event) => {
 		const districtId = event.target.value;
 		fetchWards(districtId);
 	};
-
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
-
 	if (error) {
 		console.log(error);
 		return <div>Error : {error}</div>;
 	}
 
 	return (
-		<div className="grid grid-cols-2 p-4 bg-slate-200 gap-x-8 gap-y-4 mt-4 rounded-md">
+		<div className="grid sm:grid-cols-2 p-4 bg-slate-200 gap-x-8 gap-y-4 mt-4 rounded-md">
 			<select
 				className="border-[1px] p-2 outline-none rounded-md  "
 				onChange={handleProvinceChange}
