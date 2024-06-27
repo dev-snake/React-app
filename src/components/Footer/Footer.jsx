@@ -1,6 +1,6 @@
 export default function Footer() {
 	return (
-		<footer className="w-full mt-4 bg-white p-8">
+		<footer className="w-full mt-4 bg-white p-8 border-t-[1px]">
 			<div className="max-w-[1300px] mx-auto">
 				<div className="sm:flex justify-between">
 					<div className="mt-4">

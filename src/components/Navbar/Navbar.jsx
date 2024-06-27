@@ -1,115 +1,122 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-export default function Navbar() {
-	const [isShow, setIsShow] = useState(false);
-	const [isFormVisible, setIsFormVisible] = useState(false);
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 0) {
-				setIsShow(false);
-			}
-		};
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
+import {
+	Navbar,
+	NavbarBrand,
+	NavbarContent,
+	NavbarItem,
+	NavbarMenuToggle,
+	NavbarMenu,
+	NavbarMenuItem,
+	Input,
+	Dropdown,
+	DropdownItem,
+	Avatar,
+	DropdownMenu,
+	DropdownTrigger
+} from '@nextui-org/react';
 
-	useEffect(() => {
-		const boxUser = document.querySelector('.bx-user');
+import { SearchIcon } from './SearchIcon';
+export default function Navigation() {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-		const handleMouseEnter = () => {
-			setIsFormVisible(true);
-			setIsShow(false);
-		};
-
-		const handleMouseLeave = () => {
-			const timeoutId = setTimeout(() => {
-				setIsFormVisible(false);
-			}, 1000);
-			return () => clearTimeout(timeoutId);
-		};
-
-		boxUser.addEventListener('mouseenter', handleMouseEnter);
-		boxUser.addEventListener('mouseleave', handleMouseLeave);
-
-		return () => {
-			boxUser.removeEventListener('mouseenter', handleMouseEnter);
-			boxUser.removeEventListener('mouseleave', handleMouseLeave);
-		};
-	}, []);
-
-	const toggleShow = () => {
-		setIsShow(!isShow);
-	};
-
+	const menuItems = ['Profile', 'Dashboard', 'Activity', 'Analytics', 'Log Out'];
+	const navList = [
+		{ label: 'Trang chủ', path: '/' },
+		{ label: 'Sản phẩm', path: 'products' },
+		{ label: 'Ranking', path: 'ranking' }
+	];
 	return (
-		<nav className="w-full flex p-4 justify-between max-w-[1300px] mx-auto items-center ">
-			<Link to="/" className="font-semibold text-xl">
-				dev_snake
-			</Link>
-			<ul className="hidden md:flex gap-2">
-				<li>
-					<Link to="/" className="p-4 text-[1rem] font-semibold">
+		<Navbar
+			isMenuOpen={isMenuOpen}
+			onMenuOpenChange={setIsMenuOpen}
+			className="fixed top-0 left-0 right-0 mx-auto  "
+			maxWidth="2xl"
+		>
+			<NavbarContent className="sm:hidden">
+				<NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
+			</NavbarContent>
+			<NavbarContent justify="start" as="div">
+				<NavbarBrand className="mr-4">
+					<Link className=" font-bold text-inherit" to={'/'}>
+						dev_snake
+					</Link>
+				</NavbarBrand>
+			</NavbarContent>
+			<NavbarContent className="hidden sm:flex gap-3" justify="center">
+				<NavbarItem>
+					<Link to={'/'} className="font-medium">
 						Trang chủ
 					</Link>
-				</li>
-				<li>
-					<Link to="/products" className="p-4 text-[1rem] font-semibold">
-						Sản phẩm
+				</NavbarItem>
+				<NavbarItem>
+					<Link to={'products'} className="font-medium">
+						Sản phẩm{' '}
 					</Link>
-				</li>
-				<li>
-					<Link to="/ranking" className="p-4 text-[1rem] font-semibold">
-						Xếp hạng
+				</NavbarItem>
+				<NavbarItem>
+					<Link to={'ranking'} className="font-medium">
+						Ranking
 					</Link>
-				</li>
-			</ul>
-			<div>
-				<i
-					className="bx bx-search p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"
-					onClick={toggleShow}
-				></i>
-				<Link to="/cart/cart-item">
-					<i className="bx bx-cart-alt p-2 bg-[#eee] mr-2 rounded-xl font-medium hover:cursor-pointer"></i>
-				</Link>
-				<Link to="/#">
-					<i className="bx bx-user p-2 bg-[#eee] rounded-xl font-medium hover:cursor-pointer"></i>
-				</Link>
-			</div>
-			{/* form show auths */}
-			<div
-				className={`absolute right-0 bg-white top-24 p-2 border-2 z-[100] rounded-[4px] mr-[310px]
-				before:content-[''] before:absolute before:triangle-up transition-opacity duration-300 ${
-					isFormVisible ? 'opacity-100' : 'opacity-0'
-				}`}
-			>
-				<p className="text-[14px] p-2 font-semibold ">
-					<i className="fa-solid fa-hands-clapping mr-1"></i> Xin chào, Vui lòng đăng nhập
-				</p>
-				<div className="w-full grid grid-cols-2 gap-2 p-2  ">
-					<button className="p-1 capitalize  tracking-[1.6px] text-[14px] font-medium bg-blue-500 text-white rounded-sm ">
-						Đăng Nhập
-					</button>
-					<button className="p-1 capitalize  tracking-[1.6px] text-[14px] font-medium border-2 border-blue-500 rounded-sm">
-						Đăng kí
-					</button>
-				</div>
-			</div>
-			{/* Input Search */}
-			<div
-				className={`fixed top-24  bg-slate-50 p-2 rounded-xl shadow-sm 
-					 transition-all duration-300  
-					 ${isShow ? 'translate-x-[980px]' : 'translate-x-[2000px]'}
-					`}
-			>
-				<input
-					type="text"
-					className="p-2 outline-none rounded-xl mr-2 shadow-xl w-60"
-					placeholder="Pro cần tìm gì ?"
+				</NavbarItem>
+			</NavbarContent>
+			<NavbarContent as="div" className="items-center" justify="end">
+				<Input
+					classNames={{
+						base: 'max-w-full sm:max-w-[14rem] h-10',
+						mainWrapper: 'h-full',
+						input: 'text-small',
+						inputWrapper:
+							'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20'
+					}}
+					placeholder="Type to search..."
+					size="sm"
+					startContent={<SearchIcon size={18} />}
+					type="search"
 				/>
-				<i className="bx bx-search inline-block p-2 bg-blue-500 text-white rounded-xl cursor-pointer"></i>
-			</div>
-		</nav>
+				<Dropdown placement="bottom-end" className="mt-10">
+					<DropdownTrigger>
+						<Avatar
+							as="button"
+							className="transition-transform"
+							color="secondary"
+							name="Jason Hughes"
+							size="sm"
+						/>
+					</DropdownTrigger>
+					<DropdownMenu variant="flat">
+						<DropdownItem key="profile" className="h-14 gap-2">
+							<p className="font-semibold">Signed in as</p>
+							<p className="font-semibold">zoey@example.com</p>
+						</DropdownItem>
+						<DropdownItem key="settings">My Settings</DropdownItem>
+						<DropdownItem key="team_settings">Team Settings</DropdownItem>
+
+						<DropdownItem key="logout" color="danger">
+							<Link> Log Out</Link>
+						</DropdownItem>
+					</DropdownMenu>
+				</Dropdown>
+			</NavbarContent>
+			<NavbarMenu>
+				{navList.map(({ label, path }, index) => (
+					<NavbarMenuItem key={`${label}-${index}`}>
+						<Link
+							className="w-full"
+							color={
+								index === 2
+									? 'warning'
+									: index === menuItems.length - 1
+									? 'danger'
+									: 'foreground'
+							}
+							to={path}
+						>
+							{label}
+						</Link>
+					</NavbarMenuItem>
+				))}
+			</NavbarMenu>
+		</Navbar>
 	);
 }

@@ -1,18 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home/Home';
-import Products from '../pages/Products/Products';
-import Ranking from '../pages/Rank/Ranking';
-import NotFound from '../pages/NotFound/NotFound';
-import Profile from '../pages/Profile/Profile';
-import Login from '../pages/auth/Login/Login';
-import Register from '../pages/auth/Register/Register';
-import ChangePassword from '../pages/Profile/ChangePw/ChangePassword';
-import UserInfor from '../pages/Profile/UserInfor/UserInfor';
-import PageDetail from '../pages/PgDetail/Detail';
-import Cart from '../pages/Cart/Cart';
-import CartInfor from '../pages/Cart/cart-infor/CartInfor';
-import CartContainer from '../pages/Cart/cart-container/CartContainer';
-import Payment from '../pages/Cart/payment/Payment';
+import React, { lazy } from 'react';
+// import { Counter } from '../features/counter/counter';
+const Home = lazy(() => import('../pages/Home/Home'));
+const Products = lazy(() => import('../pages/Products/Products'));
+const Ranking = lazy(() => import('../pages/Rank/Ranking'));
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
+const Profile = lazy(() => import('../pages/Profile/Profile'));
+const Login = lazy(() => import('../pages/auth/Login/Login'));
+const Register = lazy(() => import('../pages/auth/Register/Register'));
+const ChangePassword = lazy(() => import('../pages/Profile/ChangePw/ChangePassword'));
+const UserInfor = lazy(() => import('../pages/Profile/UserInfor/UserInfor'));
+const PageDetail = lazy(() => import('../pages/PgDetail/Detail'));
+const Cart = lazy(() => import('../pages/Cart/Cart'));
+const CartInfor = lazy(() => import('../pages/Cart/cart-infor/CartInfor'));
+const CartContainer = lazy(() => import('../pages/Cart/cart-container/CartContainer'));
+const Payment = lazy(() => import('../pages/Cart/payment/Payment'));
+const OrderHistory = lazy(() => import('../pages/Profile/orders-history/OrderHistory'));
+const LookupOrder = lazy(() => import('../pages/Profile/lookup-order/LookupOrder'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -71,6 +75,14 @@ export const router = createBrowserRouter([
 			{
 				path: 'user-infor',
 				element: <UserInfor />
+			},
+			{
+				path: 'order-history',
+				element: <OrderHistory />
+			},
+			{
+				path: 'lookup-order',
+				element: <LookupOrder />
 			}
 		]
 	},

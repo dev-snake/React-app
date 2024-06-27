@@ -1,3 +1,4 @@
+import { Button, Textarea } from '@nextui-org/react';
 export default function Feedback() {
 	return (
 		<form className="bg-white mt-4 text-[1rem] p-4 rounded-md max-[998px]:m-4">
@@ -9,13 +10,18 @@ export default function Feedback() {
 				</div>
 			</div>
 			<p className="text-[1rem] font-medium py-2">Vui lòng chia sẻ lí do tại sao</p>
-			<textarea className="w-full outline-none border p-1 rounded text-[1rem]"></textarea>
-			<button
-				className="text-[1rem] bg-blue-400 w-full p-2 rounded text-white
-             mt-2 hover:bg-blue-500 transition-all duration-300 ease-linear h-10"
+			<Textarea
+				className="w-full outline-none "
+				label="Nhập bình luận của bạn"
+				variant="faded"
+			></Textarea>
+			<Button
+				className="text-[1rem] block w-full outline-none mt-4"
+				color="primary"
+				variant="shadow"
 			>
 				Gửi đánh giá
-			</button>
+			</Button>
 		</form>
 	);
 }

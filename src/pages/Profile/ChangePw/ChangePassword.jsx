@@ -1,3 +1,7 @@
 export default function ChangePassword() {
-	return <h2>Change Password</h2>;
+	return (
+		<>
+			<h1>ChangePassword</h1>
+		</>
+	);
 }
