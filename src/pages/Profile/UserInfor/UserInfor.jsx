@@ -1,3 +1,5 @@
+import { Button } from '@nextui-org/react';
+
 export default function UserInfor() {
 	return (
 		<>
@@ -90,12 +92,12 @@ export default function UserInfor() {
 							</div>
 						</div>
 						<div className="md:ml-2 w-full">
-							<button
-								className="bg-blue-400 p-2 rounded-xl text-white font-semibold md:w-52 mt-2 md:ml-36 cursor-pointer w-full"
-								type="submit"
+							<Button
+								color="primary"
+								className=" p-2 rounded-xl text-white font-semibold md:w-[70%] mt-2 md:ml-36 cursor-pointer w-full"
 							>
 								Lưu thay đổi
-							</button>
+							</Button>
 						</div>
 					</form>
 				</div>

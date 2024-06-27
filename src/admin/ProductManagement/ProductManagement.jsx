@@ -5,134 +5,110 @@ import {
 	TableColumn,
 	TableCell,
 	TableRow,
-	Chip,
+	Pagination,
+	Image,
 	Tooltip,
-	Avatar
+	useDisclosure
 } from '@nextui-org/react';
+import Confirm from './Confirm/Confirm';
+import { Toaster, toast } from 'sonner';
 import Navigation from './Navigation/Navigation';
+import { useState, useMemo, useEffect } from 'react';
+import { useFetch } from '../../Hooks/useFetch';
+import { API } from '../../service/api/API';
+import { formatMoney } from '../../utils/formatNumber';
+import AddProduct from './AddProduct/AddProduct';
 export default function ProductManagement() {
+	const { data } = useFetch(`${API.PRODUCTS}`);
+	const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+	const [state, setState] = useState({ currentId: '', isConfirm: false });
+	const [page, setPage] = useState(1);
+	const rowsPerPage = 4;
+	const pages = Math.ceil(data.length / rowsPerPage);
+	const items = useMemo(() => {
+		const start = (page - 1) * rowsPerPage;
+		const end = start + rowsPerPage;
+		return data.slice(start, end);
+	}, [page, data]);
+	useEffect(() => {
+		if (state.isConfirm) {
+			const handleDelete = async () => {
+				toast.success('Deleted Successfully', { duration: 3000 });
+				setState({ currentId: null, isConfirm: false });
+			};
+			handleDelete();
+		}
+	}, [state.isConfirm]);
 	return (
 		<div className="p-2 mt-4">
 			<Navigation />
-			<Table className="mt-4" isHeaderSticky>
+			<Confirm isOpen={isOpen} onOpenChange={onOpenChange} setState={setState} />
+			<Table
+				className="mt-4"
+				isHeaderSticky
+				bottomContent={
+					<div className="flex w-full justify-center">
+						<Pagination
+							isCompact
+							showControls
+							showShadow
+							variant="light"
+							color="primary"
+							page={page}
+							total={pages}
+							onChange={(page) => setPage(page)}
+						/>
+					</div>
+				}
+			>
 				<TableHeader className="text-center">
-					<TableColumn>id</TableColumn>
 					<TableColumn>IMAGE</TableColumn>
 					<TableColumn>NAME</TableColumn>
-					<TableColumn>Price</TableColumn>
-					<TableColumn>ROLE</TableColumn>
+					<TableColumn>QUANTITY_IMPORTED</TableColumn>
+					<TableColumn>QUANTITY_SOLD</TableColumn>
+					<TableColumn>PRICE</TableColumn>
+					<TableColumn>CATEGORY</TableColumn>
 					<TableColumn>STATUS</TableColumn>
-					<TableColumn>Action</TableColumn>
+					<TableColumn>ACTION</TableColumn>
 				</TableHeader>
-				<TableBody>
-					<TableRow>
-						<TableCell>1</TableCell>
-						<TableCell>
-							<Avatar />
-						</TableCell>
-						<TableCell>Zoey Lang</TableCell>
-						<TableCell>Price</TableCell>
-						<TableCell>Technical Lead</TableCell>
-						<TableCell>
-							<Chip
-								className="text-green-400 active:opacity-50 bg-green-100
-                        "
-							>
-								success
-							</Chip>
-						</TableCell>
-						<TableCell>
-							<div className="relative flex items-center gap-2">
-								<Tooltip content="Edit Product">
-									<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer "></i>
-								</Tooltip>
-								<Tooltip content="Delete Product ">
-									<i className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"></i>
-								</Tooltip>
-							</div>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>1</TableCell>
-						<TableCell>
-							<Avatar />
-						</TableCell>
-						<TableCell>Zoey Lang</TableCell>
-						<TableCell>Price</TableCell>
-						<TableCell>Technical Lead</TableCell>
-						<TableCell>
-							<Chip
-								className="text-green-400 active:opacity-50 bg-green-100
-                        "
-							>
-								success
-							</Chip>
-						</TableCell>
-						<TableCell>
-							<div className="relative flex items-center gap-2">
-								<Tooltip content="Edit Product">
-									<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer "></i>
-								</Tooltip>
-								<Tooltip content="Delete Product ">
-									<i className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"></i>
-								</Tooltip>
-							</div>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>1</TableCell>
-						<TableCell>
-							<Avatar />
-						</TableCell>
-						<TableCell>Zoey Lang</TableCell>
-						<TableCell>Price</TableCell>
-						<TableCell>Technical Lead</TableCell>
-						<TableCell>
-							<Chip
-								className="text-green-400 active:opacity-50 bg-green-100
-                        "
-							>
-								success
-							</Chip>
-						</TableCell>
-						<TableCell>
-							<div className="relative flex items-center gap-2">
-								<Tooltip content="Edit Product">
-									<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer "></i>
-								</Tooltip>
-								<Tooltip content="Delete Product ">
-									<i className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"></i>
-								</Tooltip>
-							</div>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>1</TableCell>
-						<TableCell>
-							<Avatar />
-						</TableCell>
-						<TableCell>Zoey Lang</TableCell>
-						<TableCell>Price</TableCell>
-						<TableCell>Technical Lead</TableCell>
-						<TableCell>
-							<Chip
-								className="text-green-400 active:opacity-50 bg-green-100
-                        "
-							>
-								success
-							</Chip>
-						</TableCell>
-						<TableCell>
-							<div className="relative flex items-center gap-2">
-								<Tooltip content="Edit Product">
-									<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer "></i>
-								</Tooltip>
-								<Tooltip content="Delete Product ">
-									<i className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"></i>
-								</Tooltip>
-							</div>
-						</TableCell>
-					</TableRow>
+				<TableBody items={items}>
+					{items.map(
+						(
+							{ name, price, image, quantityImported, quantity_sold, category, _id },
+							index
+						) => (
+							<TableRow key={index}>
+								<TableCell>
+									<Image src={image} alt="" width={100} />
+								</TableCell>
+								<TableCell>{name}</TableCell>
+								<TableCell>{quantityImported}</TableCell>
+								<TableCell>{quantity_sold}</TableCell>
+								<TableCell>{formatMoney(price)} đ</TableCell>
+								<TableCell>{category}</TableCell>
+								<TableCell>Còn hàng</TableCell>
+								<TableCell>
+									<div className="relative flex items-center gap-2">
+										<Tooltip content="Edit Product">
+											<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer"></i>
+										</Tooltip>
+										<Tooltip content={`Delete :  ${name}`}>
+											<i
+												className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"
+												onClick={() => {
+													onOpen();
+													setState((prev) => ({
+														...prev,
+														currentId: _id
+													}));
+												}}
+											></i>
+										</Tooltip>
+									</div>
+								</TableCell>
+							</TableRow>
+						)
+					)}
 				</TableBody>
 			</Table>
 		</div>

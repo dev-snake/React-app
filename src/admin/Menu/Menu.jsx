@@ -1,11 +1,16 @@
 import { ButtonGroup, Button } from '@nextui-org/react';
+import { Link } from 'react-router-dom';
 export default function Menu() {
 	return (
 		<div className="p-2">
-			<ButtonGroup size="lg" color="primary" variant="shadow">
-				<Button>user</Button>
-				<Button>order</Button>
-				<Button>dsfsd</Button>
+			<ButtonGroup size="md" color="primary" variant="shadow">
+				<Button>
+					<Link to={'product-management'}>Products</Link>
+				</Button>
+				<Button>Orders</Button>
+				<Button>Categories</Button>
+				<Button>Categories</Button>
+				<Button>Categories</Button>
 			</ButtonGroup>
 		</div>
 	);
