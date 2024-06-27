@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import React, { lazy } from 'react';
+import DashBoard from '../admin/Dashboard/Dashboard';
+import ProductManagement from '../admin/ProductManagement/ProductManagement';
 // import { Counter } from '../features/counter/counter';
 const Home = lazy(() => import('../pages/Home/Home'));
 const Products = lazy(() => import('../pages/Products/Products'));
@@ -17,10 +19,25 @@ const CartContainer = lazy(() => import('../pages/Cart/cart-container/CartContai
 const Payment = lazy(() => import('../pages/Cart/payment/Payment'));
 const OrderHistory = lazy(() => import('../pages/Profile/orders-history/OrderHistory'));
 const LookupOrder = lazy(() => import('../pages/Profile/lookup-order/LookupOrder'));
+const Admin = lazy(() => import('../../src/admin/Admin'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />
+	},
+	{
+		path: 'admin',
+		element: <Admin />,
+		children: [
+			{
+				path: 'dashboard',
+				element: <DashBoard />
+			},
+			{
+				path: 'product-management',
+				element: <ProductManagement />
+			}
+		]
 	},
 	{
 		path: ':productId',

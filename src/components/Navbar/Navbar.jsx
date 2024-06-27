@@ -30,7 +30,7 @@ export default function Navigation() {
 		<Navbar
 			isMenuOpen={isMenuOpen}
 			onMenuOpenChange={setIsMenuOpen}
-			className="fixed top-0 left-0 right-0 mx-auto  "
+			className="fixed top-0 left-0 right-0 mx-auto z-[1000] "
 			maxWidth="2xl"
 		>
 			<NavbarContent className="sm:hidden">
@@ -85,7 +85,7 @@ export default function Navigation() {
 						/>
 					</DropdownTrigger>
 					<DropdownMenu variant="flat">
-						<DropdownItem key="profile" className="h-14 gap-2">
+						{/* <DropdownItem key="profile" className="h-14 gap-2">
 							<p className="font-semibold">Signed in as</p>
 							<p className="font-semibold">zoey@example.com</p>
 						</DropdownItem>
@@ -94,6 +94,13 @@ export default function Navigation() {
 
 						<DropdownItem key="logout" color="danger">
 							<Link> Log Out</Link>
+						</DropdownItem> */}
+						<DropdownItem key="login">
+							<Link to={'auth/login'}> Đăng nhập </Link>
+						</DropdownItem>
+
+						<DropdownItem key="register">
+							<Link to={'auth/register'}> Đăng kí</Link>
 						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
