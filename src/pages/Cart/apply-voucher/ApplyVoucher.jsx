@@ -1,6 +1,8 @@
 import { useState, Fragment } from 'react';
 import ImageSale from '../../../assets/images/saleVoucher.png';
 import ButtonPayment from '../ButtonPayment/ButtonPayment';
+import { Button, Input } from '@nextui-org/react';
+
 export default function ApplyVoucher() {
 	const [isShow, setIsShow] = useState(false);
 	const handleClickShow = () => {
@@ -44,15 +46,15 @@ export default function ApplyVoucher() {
 function FormVoucher() {
 	return (
 		<Fragment>
-			<div className="bg-slate-100 p-2 flex gap-2 rounded-md">
-				<input
+			<div className="bg-slate-50 p-2 flex gap-2 rounded-md items-center">
+				<Input
 					type="text"
 					className="grow-[2] outline-none p-2"
 					placeholder="Nhập mã giảm giá/Phiếu mua hàng"
 				/>
-				<button className="h-10 bg-blue-500 text-white flex-grow rounded-md font-medium">
+				<Button className="h-10  font-medium" color="primary">
 					Áp dụng
-				</button>
+				</Button>
 			</div>
 			<div className="mt-2 grid gap-2">
 				<div className="border-[1px] p-1 rounded-lg flex gap-2">

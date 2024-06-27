@@ -14,7 +14,7 @@ export default function Login() {
 							<Checkbox> Remember me</Checkbox>
 							<Link> Forgot password?</Link>
 						</div>
-						<Button size="18" color="primary" variant="shadow">
+						<Button size="lg" color="primary" variant="shadow">
 							Login
 						</Button>
 					</form>

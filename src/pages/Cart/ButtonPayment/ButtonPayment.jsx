@@ -1,3 +1,4 @@
+import { Button } from '@nextui-org/react';
 function ButtonPayment() {
 	return (
 		<>
@@ -12,9 +13,9 @@ function ButtonPayment() {
 					<strong className="text-[20px]">40.000₫</strong>
 				</div>
 				<div className="mt-2">
-					<button className="bg-blue-500 text-white w-full py-4 rounded-[4px] text-[18px] font-semibold tracking-[1.6px]">
+					<Button className=" h-16 bg-blue-500 text-white w-full py-4 rounded-[4px] text-[18px]  tracking-[1.6px]">
 						Đặt hàng ngay
-					</button>
+					</Button>
 				</div>
 			</div>
 		</>

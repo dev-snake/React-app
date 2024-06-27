@@ -15,7 +15,7 @@ export default function Register() {
 							<Checkbox> Remember me</Checkbox>
 							<Link> Forgot password?</Link>
 						</div>
-						<Button size="18" color="primary" variant="shadow">
+						<Button size="lg" color="primary" variant="shadow">
 							Register
 						</Button>
 					</form>
