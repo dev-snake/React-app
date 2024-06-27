@@ -22,10 +22,10 @@ export default function Confirm({ isOpen, onOpenChange, setState }) {
 				{(onClose) => (
 					<>
 						<ModalHeader className="flex flex-col gap-1">
-							Xóa sản phẩm này .
+							Do you want to delete this product ?
 						</ModalHeader>
 						<ModalBody>
-							<p>Bạn có chắc chắn muốn xóa sản phẩm này không ?</p>
+							<p> Are you sure want to delete this product ? </p>
 						</ModalBody>
 						<ModalFooter>
 							<Button

@@ -6,7 +6,8 @@ import {
 	DropdownItem,
 	DropdownTrigger
 } from '@nextui-org/react';
-export default function Navigation() {
+
+export default function Navigation({ onAddProduct }) {
 	return (
 		<div className="flex justify-between gap-3">
 			<Input
@@ -31,7 +32,11 @@ export default function Navigation() {
 						<DropdownItem>Pendding</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-				<Button color="primary" endContent={<i className="fa-solid fa-plus"></i>}>
+				<Button
+					color="primary"
+					endContent={<i className="fa-solid fa-plus"></i>}
+					onClick={onAddProduct}
+				>
 					Add New
 				</Button>
 			</div>

@@ -11,7 +11,7 @@ import {
 	useDisclosure
 } from '@nextui-org/react';
 import Confirm from './Confirm/Confirm';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import Navigation from './Navigation/Navigation';
 import { useState, useMemo, useEffect } from 'react';
 import { useFetch } from '../../Hooks/useFetch';
@@ -20,7 +20,18 @@ import { formatMoney } from '../../utils/formatNumber';
 import AddProduct from './AddProduct/AddProduct';
 export default function ProductManagement() {
 	const { data } = useFetch(`${API.PRODUCTS}`);
-	const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+	const {
+		isOpen: isAddProductOpen,
+		onOpen: onAddProductOpen,
+		onClose: onAddProductClose,
+		onOpenChange: onAddProductOpenChange
+	} = useDisclosure();
+	const {
+		isOpen: isConfirmOpen,
+		onOpen: onConfirmOpen,
+		onClose: onConfirmClose,
+		onOpenChange: onConfirmOpenChange
+	} = useDisclosure();
 	const [state, setState] = useState({ currentId: '', isConfirm: false });
 	const [page, setPage] = useState(1);
 	const rowsPerPage = 4;
@@ -41,8 +52,13 @@ export default function ProductManagement() {
 	}, [state.isConfirm]);
 	return (
 		<div className="p-2 mt-4">
-			<Navigation />
-			<Confirm isOpen={isOpen} onOpenChange={onOpenChange} setState={setState} />
+			<Navigation onAddProduct={onAddProductOpen} />
+			<Confirm
+				isOpen={isConfirmOpen}
+				onOpenChange={onConfirmOpenChange}
+				setState={setState}
+			/>
+			<AddProduct isOpen={isAddProductOpen} onOpenChange={onAddProductOpenChange} />
 			<Table
 				className="mt-4"
 				isHeaderSticky
@@ -96,7 +112,7 @@ export default function ProductManagement() {
 											<i
 												className="fa-solid fa-trash bg-red-400 p-3 text-white rounded-[1rem] cursor-pointer"
 												onClick={() => {
-													onOpen();
+													onConfirmOpen();
 													setState((prev) => ({
 														...prev,
 														currentId: _id
