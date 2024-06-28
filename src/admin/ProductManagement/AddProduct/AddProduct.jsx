@@ -1,127 +1,71 @@
-import {
-	Modal,
-	ModalBody,
-	ModalHeader,
-	ModalFooter,
-	ModalContent,
-	Button,
-	Input
-} from '@nextui-org/react';
+import { Button, Input, Checkbox, Select, SelectItem } from '@nextui-org/react';
 import { useState } from 'react';
-import { toast } from 'sonner';
-export default function AddProduct({ isOpen, onOpenChange }) {
-	const [state, setState] = useState({
-		name: null,
-		price: null,
-		image: null,
-		quantityImported: null,
-		sale: null,
-		category: null
-	});
-	const [invalid, setInvalid] = useState({
-		name: false,
-		price: false,
-		image: false,
-		quantityImported: false,
-		category: false
-	});
-	const handleInvalid = (event, field) => {
-		const value = event.target.value;
-		if (value === '') {
-			setInvalid((prev) => ({ ...prev, [field]: true }));
-		} else {
-			setInvalid((prev) => ({ ...prev, [field]: false }));
-		}
-	};
-	const handleSubmit = () => {
-		console.log(state);
-	};
+export default function AddProduct() {
+	const [state, setState] = useState();
 	return (
-		<Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
-			<ModalContent>
-				{(onClose) => (
-					<>
-						<ModalHeader>Add new Products</ModalHeader>
-						<ModalBody>
-							<form className="flex flex-col gap-3">
-								<Input
-									aria-labelledby=""
-									label="Enter name's product"
-									type="text"
-									isInvalid={invalid.name}
-									onChange={(e) => {
-										setState((prev) => ({ ...prev, name: e.target.value }));
-									}}
-									onBlur={(e) => handleInvalid(e, 'name')}
-								/>
-								<Input
-									aria-labelledby=""
-									type="number"
-									label="Price"
-									isInvalid={invalid.price}
-									placeholder="0.00"
-									onChange={(e) => {
-										setState((prev) => ({ ...prev, price: +e.target.value }));
-										handleInvalid(e);
-									}}
-								/>
-								<Input
-									label="Enter Quantity import"
-									aria-labelledby=""
-									isInvalid={invalid.quantityImported}
-									type="number"
-									max={100}
-									onChange={(e) =>
-										setState((prev) => ({
-											...prev,
-											quantityImported: +e.target.value
-										}))
-									}
-								/>
-								<Input
-									label="Image"
-									aria-labelledby=""
-									type="text"
-									isInvalid={invalid.image}
-									onChange={(e) =>
-										setState((prev) => ({
-											...prev,
-											image: e.target.value
-										}))
-									}
-								/>
-								<Input
-									label="Category"
-									aria-labelledby=""
-									type="text"
-									isInvalid={invalid.category}
-									onChange={(e) =>
-										setState((prev) => ({
-											...prev,
-											category: +e.target.value
-										}))
-									}
-								/>
-							</form>
-						</ModalBody>
-						<ModalFooter>
-							<Button onClick={onClose} variant="light" color="danger">
-								Close
+		<div className="p-3">
+			<div className="flex justify-between mt-4">
+				<h1 className="text-2xl font-semibold">Thêm sản phẩm mới</h1>
+				<Button color="primary" startContent={<i className="fa-solid fa-arrow-left"></i>}>
+					Quay lại
+				</Button>
+			</div>
+			<form action="" className="mt-4">
+				<Input type="text" label="Tên sản phẩm " size="sm" isRequired />
+				<div className="flex gap-3 mt-8">
+					<Input
+						size="lg"
+						label="Giá sản phẩm "
+						labelPlacement="outside"
+						placeholder="0.00"
+						isRequired
+					/>
+					<Input
+						size="lg"
+						placeholder="0"
+						label={<Checkbox>Giảm giá</Checkbox>}
+						labelPlacement="outside"
+						className="relative"
+					/>
+
+					<Select
+						size="lg"
+						label="Danh mục sản phẩm"
+						labelPlacement="outside"
+						placeholder="Danh mục sản phẩm"
+						isRequired
+					>
+						<SelectItem>ê</SelectItem>
+						<SelectItem>f</SelectItem>
+						<SelectItem>fzxczx</SelectItem>
+					</Select>
+				</div>
+				<div className="mt-8">
+					<div className="flex justify-between">
+						<h1 className=" text-2xl font-semibold">Các biến thể </h1>
+						<div className="flex gap-5 items-center">
+							<span className="font-semibold">(1/10)</span>
+							<Button isIconOnly color="primary" variant="shadow" aria-label="plus">
+								<i className="fa-solid fa-plus"></i>
 							</Button>
-							<Button
-								onClick={() => {
-									onClose();
-									handleSubmit();
-								}}
-								color="primary"
-								type="submit"
-							>
-								Add Product
+						</div>
+					</div>
+					<div className="mt-8 ">
+						<div className=" flex gap-5 items-center">
+							<Input size="lg" placeholder="Mã sản phẩm " isRequired />
+							<Input size="lg" placeholder="Tên sản phẩm" />
+							<Input size="lg" placeholder="Số lượng nhập" />
+							<Input type="" size="lg" placeholder="Hình ảnh" isRequired />
+							<Button isIconOnly className="bg-red-500 text-white">
+								<i className="fa-solid fa-xmark"></i>
 							</Button>
-						</ModalFooter>
-					</>
-				)}
-			</ModalContent>
-		</Modal>
+						</div>
+					</div>
+				</div>
+				<Button className="mt-10 mb-4 block w-full" color="primary" size="lg">
+					Thêm sản phẩm mới
+				</Button>
+			</form>
+		</div>
 	);
 }

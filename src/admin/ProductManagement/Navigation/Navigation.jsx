@@ -6,7 +6,7 @@ import {
 	DropdownItem,
 	DropdownTrigger
 } from '@nextui-org/react';
-
+import { Link } from 'react-router-dom';
 export default function Navigation({ onAddProduct }) {
 	return (
 		<div className="flex justify-between gap-3">
@@ -32,12 +32,8 @@ export default function Navigation({ onAddProduct }) {
 						<DropdownItem>Pendding</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-				<Button
-					color="primary"
-					endContent={<i className="fa-solid fa-plus"></i>}
-					onClick={onAddProduct}
-				>
-					Add New
+				<Button color="primary" endContent={<i className="fa-solid fa-plus"></i>}>
+					<Link to={'create'}>Thêm sản phẩm mới</Link>
 				</Button>
 			</div>
 		</div>

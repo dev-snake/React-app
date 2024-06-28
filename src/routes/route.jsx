@@ -20,6 +20,7 @@ const LookupOrder = lazy(() => import('../pages/Profile/lookup-order/LookupOrder
 const Admin = lazy(() => import('../../src/admin/Admin'));
 const DashBoard = lazy(() => import('../admin/Dashboard/Dashboard'));
 const ProductManagement = lazy(() => import('../admin/ProductManagement/ProductManagement'));
+const AddProduct = lazy(() => import('../admin/ProductManagement/AddProduct/AddProduct'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -34,8 +35,12 @@ export const router = createBrowserRouter([
 				element: <DashBoard />
 			},
 			{
-				path: 'product-management',
+				path: 'products',
 				element: <ProductManagement />
+			},
+			{
+				path: 'products/create',
+				element: <AddProduct />
 			}
 		]
 	},

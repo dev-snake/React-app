@@ -5,7 +5,7 @@ export default function Menu() {
 		<div className="p-2">
 			<ButtonGroup size="md" color="primary" variant="shadow">
 				<Button>
-					<Link to={'product-management'}>Products</Link>
+					<Link to={'products'}>Products</Link>
 				</Button>
 				<Button>Orders</Button>
 				<Button>Categories</Button>

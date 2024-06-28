@@ -67,7 +67,6 @@ export default function ProductManagement() {
 				onOpenChange={onConfirmOpenChange}
 				setState={setState}
 			/>
-			<AddProduct isOpen={isAddProductOpen} onOpenChange={onAddProductOpenChange} />
 			<EditProduct isOpen={isEditOpen} onOpenChange={onEditOpenChange} />
 			<Table
 				className="mt-4"
