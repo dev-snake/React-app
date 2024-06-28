@@ -5,11 +5,10 @@ import {
 	ModalFooter,
 	ModalContent,
 	Button,
-	useDisclosure,
 	Input
 } from '@nextui-org/react';
 import { useState } from 'react';
-
+import { toast } from 'sonner';
 export default function AddProduct({ isOpen, onOpenChange }) {
 	const [state, setState] = useState({
 		name: null,
@@ -19,6 +18,21 @@ export default function AddProduct({ isOpen, onOpenChange }) {
 		sale: null,
 		category: null
 	});
+	const [invalid, setInvalid] = useState({
+		name: false,
+		price: false,
+		image: false,
+		quantityImported: false,
+		category: false
+	});
+	const handleInvalid = (event, field) => {
+		const value = event.target.value;
+		if (value === '') {
+			setInvalid((prev) => ({ ...prev, [field]: true }));
+		} else {
+			setInvalid((prev) => ({ ...prev, [field]: false }));
+		}
+	};
 	const handleSubmit = () => {
 		console.log(state);
 	};
@@ -31,23 +45,30 @@ export default function AddProduct({ isOpen, onOpenChange }) {
 						<ModalBody>
 							<form className="flex flex-col gap-3">
 								<Input
+									aria-labelledby=""
 									label="Enter name's product"
 									type="text"
-									onChange={(e) =>
-										setState((prev) => ({ ...prev, name: e.target.value }))
-									}
+									isInvalid={invalid.name}
+									onChange={(e) => {
+										setState((prev) => ({ ...prev, name: e.target.value }));
+									}}
+									onBlur={(e) => handleInvalid(e, 'name')}
 								/>
 								<Input
+									aria-labelledby=""
 									type="number"
 									label="Price"
+									isInvalid={invalid.price}
 									placeholder="0.00"
-									onChange={(e) =>
-										setState((prev) => ({ ...prev, price: +e.target.value }))
-									}
+									onChange={(e) => {
+										setState((prev) => ({ ...prev, price: +e.target.value }));
+										handleInvalid(e);
+									}}
 								/>
 								<Input
 									label="Enter Quantity import"
 									aria-labelledby=""
+									isInvalid={invalid.quantityImported}
 									type="number"
 									max={100}
 									onChange={(e) =>
@@ -61,6 +82,7 @@ export default function AddProduct({ isOpen, onOpenChange }) {
 									label="Image"
 									aria-labelledby=""
 									type="text"
+									isInvalid={invalid.image}
 									onChange={(e) =>
 										setState((prev) => ({
 											...prev,
@@ -70,7 +92,9 @@ export default function AddProduct({ isOpen, onOpenChange }) {
 								/>
 								<Input
 									label="Category"
+									aria-labelledby=""
 									type="text"
+									isInvalid={invalid.category}
 									onChange={(e) =>
 										setState((prev) => ({
 											...prev,

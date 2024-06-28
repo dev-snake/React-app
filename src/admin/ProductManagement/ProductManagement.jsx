@@ -8,7 +8,8 @@ import {
 	Pagination,
 	Image,
 	Tooltip,
-	useDisclosure
+	useDisclosure,
+	Spinner
 } from '@nextui-org/react';
 import Confirm from './Confirm/Confirm';
 import { toast } from 'sonner';
@@ -18,8 +19,9 @@ import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
 import { formatMoney } from '../../utils/formatNumber';
 import AddProduct from './AddProduct/AddProduct';
+import EditProduct from './EditProduct/EditProduct';
 export default function ProductManagement() {
-	const { data } = useFetch(`${API.PRODUCTS}`);
+	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const {
 		isOpen: isAddProductOpen,
 		onOpen: onAddProductOpen,
@@ -31,6 +33,12 @@ export default function ProductManagement() {
 		onOpen: onConfirmOpen,
 		onClose: onConfirmClose,
 		onOpenChange: onConfirmOpenChange
+	} = useDisclosure();
+	const {
+		isOpen: isEditOpen,
+		onOpen: onEditOpen,
+		onClose: onEditClose,
+		onOpenChange: onEditOpenChange
 	} = useDisclosure();
 	const [state, setState] = useState({ currentId: '', isConfirm: false });
 	const [page, setPage] = useState(1);
@@ -60,6 +68,7 @@ export default function ProductManagement() {
 				setState={setState}
 			/>
 			<AddProduct isOpen={isAddProductOpen} onOpenChange={onAddProductOpenChange} />
+			<EditProduct isOpen={isEditOpen} onOpenChange={onEditOpenChange} />
 			<Table
 				className="mt-4"
 				isHeaderSticky
@@ -86,7 +95,10 @@ export default function ProductManagement() {
 					<TableColumn>STATUS</TableColumn>
 					<TableColumn>ACTION</TableColumn>
 				</TableHeader>
-				<TableBody items={items}>
+				<TableBody
+					items={items}
+					emptyContent={isLoading ? <Spinner /> : 'No data available'}
+				>
 					{items.map(
 						(
 							{ name, price, image, quantityImported, quantity_sold, category, _id },
@@ -105,7 +117,12 @@ export default function ProductManagement() {
 								<TableCell>
 									<div className="relative flex items-center gap-2">
 										<Tooltip content="Edit Product">
-											<i className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer"></i>
+											<i
+												className="fa-regular fa-pen-to-square p-3 bg-blue-400 text-white rounded-[1rem] cursor-pointer"
+												onClick={() => {
+													onEditOpen();
+												}}
+											></i>
 										</Tooltip>
 										<Tooltip content={`Delete :  ${name}`}>
 											<i

@@ -15,9 +15,18 @@ import {
 	DropdownMenu,
 	DropdownTrigger
 } from '@nextui-org/react';
-
+import { useLocation } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
 export default function Navigation() {
+	let { pathname } = useLocation();
+	const [path, setPath] = useState({ isPath: false, route: '/admin' });
+	useEffect(() => {
+		if (pathname.startsWith(path.route)) {
+			setPath((prevPath) => ({ ...prevPath, isPath: true }));
+		} else {
+			setPath((prevPath) => ({ ...prevPath, isPath: false }));
+		}
+	}, [path.route, pathname]);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const menuItems = ['Profile', 'Dashboard', 'Activity', 'Analytics', 'Log Out'];
@@ -44,21 +53,23 @@ export default function Navigation() {
 				</NavbarBrand>
 			</NavbarContent>
 			<NavbarContent className="hidden sm:flex gap-3" justify="center">
-				<NavbarItem>
-					<Link to={'/'} className="font-medium">
-						Trang chủ
-					</Link>
-				</NavbarItem>
-				<NavbarItem>
-					<Link to={'products'} className="font-medium">
-						Sản phẩm{' '}
-					</Link>
-				</NavbarItem>
-				<NavbarItem>
-					<Link to={'ranking'} className="font-medium">
-						Ranking
-					</Link>
-				</NavbarItem>
+				{path.isPath ? (
+					<NavbarItem>
+						<Link to={'/'} className="font-semibold text-xl">
+							WELCOME TO DEV_SNAKE
+						</Link>
+					</NavbarItem>
+				) : (
+					<>
+						{navList.map(({ label, path }, index) => (
+							<NavbarItem key={index}>
+								<Link to={path} className="font-medium">
+									{label}
+								</Link>
+							</NavbarItem>
+						))}
+					</>
+				)}
 			</NavbarContent>
 			<NavbarContent as="div" className="items-center" justify="end">
 				<Input

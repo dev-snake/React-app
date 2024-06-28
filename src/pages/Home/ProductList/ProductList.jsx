@@ -14,7 +14,7 @@ export default function ProductList() {
          max-xl:p-5 max-lg:grid-cols-4 max-[855px]:grid-cols-3 max-sm:grid-cols-2 max-[520px]:grid-cols-1 "
 			>
 				{Array.from({ length: 10 }).map((_, index) => (
-					<Card className="space-y-5 p-4" radius="lg">
+					<Card className="space-y-5 p-4" radius="lg" key={index}>
 						<Skeleton className="rounded-lg">
 							<div className="h-24 rounded-lg bg-default-300"></div>
 						</Skeleton>
