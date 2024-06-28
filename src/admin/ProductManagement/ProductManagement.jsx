@@ -50,6 +50,7 @@ export default function ProductManagement() {
 			handleDelete();
 		}
 	}, [state.isConfirm]);
+
 	return (
 		<div className="p-2 mt-4">
 			<Navigation onAddProduct={onAddProductOpen} />
@@ -65,10 +66,8 @@ export default function ProductManagement() {
 				bottomContent={
 					<div className="flex w-full justify-center">
 						<Pagination
-							isCompact
 							showControls
 							showShadow
-							variant="light"
 							color="primary"
 							page={page}
 							total={pages}
