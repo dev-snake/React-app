@@ -7,6 +7,6 @@ const API = {
 	},
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,
-	CATEGORIES: ''
+	CATEGORIES: `${BASE_URL}/categories`
 };
 export { API };

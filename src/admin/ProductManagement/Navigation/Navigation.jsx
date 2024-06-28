@@ -7,7 +7,7 @@ import {
 	DropdownTrigger
 } from '@nextui-org/react';
 import { Link } from 'react-router-dom';
-export default function Navigation({ onAddProduct }) {
+export default function Navigation() {
 	return (
 		<div className="flex justify-between gap-3">
 			<Input

@@ -4,12 +4,11 @@ const product = new Schema(
 	{
 		name: { type: String },
 		price: { type: Number },
-		orginal_price: { type: Number },
 		image: { type: String },
 		color: { type: Object, default: { white: '', black: '' } },
-		category: { type: Number },
+		categoryId: { type: Number },
 		description: { type: String, default: '' },
-		sale: { type: Number, default: 0 },
+		discount: { type: Number, default: 0 },
 		comments: { type: Array, default: [] },
 		quantity_sold: { type: Number, default: 0 },
 		quantityImported: { type: Number, default: 10 }

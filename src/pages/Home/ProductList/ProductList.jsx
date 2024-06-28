@@ -53,7 +53,7 @@ export default function ProductList() {
 								color="danger"
 								variant="shadow"
 							>
-								{product.sale}%
+								{product.discount}%
 							</Chip>
 							<div className="flex justify-center">
 								<Image

@@ -74,10 +74,10 @@ export default function PageDetail() {
 							{formatMoney(productDetail.price)} ₫
 						</span>
 						<del className="text-[18px]">
-							{formatMoney(productDetail.orginal_price)}₫
+							{formatMoney(productDetail.price + 9999)}₫
 						</del>
-						<Chip color="danger" radius="sm">
-							{productDetail.sale} %
+						<Chip color="danger" variant="shadow" radius="sm">
+							{productDetail.discount} %
 						</Chip>
 					</span>
 					<div className="flex gap-4 mt-4">

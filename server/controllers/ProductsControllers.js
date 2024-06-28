@@ -10,16 +10,28 @@ class ProductsControllers {
 	}
 	async create(req, res) {
 		try {
-			const newProduct = {
-				name: 'Chuột Logitech G102 LightSync Black',
-				price: 410000,
-				orginal_price: 440000,
-				image: 'https://product.hstatic.net/200000722513/product/logitech-g102-lightsync-rgb-black-1_bf4f5774229c4a0f81b8e8a2feebe4d8_aeb4ae49ee844c3e9d315883d4e482d4_grande.jpg',
-				category: 1,
-				sale: 25
-			};
-			const product = await productModel.create(newProduct);
+			const product = await productModel.create(req.body);
 			return res.status(200).json(product);
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
+	async update(req, res) {
+		try {
+			const { productId } = req.params;
+			const product = await productModel.findByIdAndUpdate(productId, req.body, {
+				new: true
+			});
+			return res.status(200).json(product);
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
+	async delete(req, res) {
+		try {
+			const { productId } = req.params;
+			await productModel.findByIdAndDelete(productId);
+			return res.status(200).json('Deleted Successfully');
 		} catch (error) {
 			return res.status(500).json(error.message);
 		}

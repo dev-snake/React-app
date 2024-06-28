@@ -1,8 +1,25 @@
+const categoryModel = require('../models/CategoryModel');
 class CategoriesController {
-	index(req, res) {
-		return res.send('oke');
+	async index(req, res) {
+		try {
+			const categories = await categoryModel.find({});
+			return res.status(200).json(categories);
+		} catch (error) {
+			return res.status(500).json('Internal server error');
+		}
 	}
-	create(req, res) {}
+	async create(req, res) {
+		const newCategory = {
+			name: 'Tai nghe',
+			categoryId: 3
+		};
+		try {
+			const category = await categoryModel.create(newCategory);
+			return res.status(201).json('Add category success!');
+		} catch (error) {
+			console.log(error);
+		}
+	}
 	update(req, res) {}
 	delete(req, res) {}
 }

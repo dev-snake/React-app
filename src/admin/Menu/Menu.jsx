@@ -5,12 +5,12 @@ export default function Menu() {
 		<div className="p-2">
 			<ButtonGroup size="md" color="primary" variant="shadow">
 				<Button>
-					<Link to={'products'}>Products</Link>
+					<Link to={'products'}>Sản phẩm</Link>
 				</Button>
-				<Button>Orders</Button>
-				<Button>Categories</Button>
-				<Button>Categories</Button>
-				<Button>Categories</Button>
+				<Button>Đơn hàng</Button>
+				<Button>Danh mục</Button>
+				<Button>Người dùng</Button>
+				<Button>Thống kê</Button>
 			</ButtonGroup>
 		</div>
 	);

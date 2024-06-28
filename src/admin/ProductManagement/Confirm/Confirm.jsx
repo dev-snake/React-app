@@ -10,7 +10,6 @@ import {
 import { useState } from 'react';
 export default function Confirm({ isOpen, onOpenChange, setState }) {
 	const [scrollBehavior, setScrollBehavior] = useState('inside');
-
 	return (
 		<Modal
 			isOpen={isOpen}
@@ -22,10 +21,10 @@ export default function Confirm({ isOpen, onOpenChange, setState }) {
 				{(onClose) => (
 					<>
 						<ModalHeader className="flex flex-col gap-1">
-							Do you want to delete this product ?
+							Bạn có muốn xóa sản phẩm này không ?
 						</ModalHeader>
 						<ModalBody>
-							<p> Are you sure want to delete this product ? </p>
+							<p> Bạn có chắc chắn muốn xóa sản phẩm này không</p>
 						</ModalBody>
 						<ModalFooter>
 							<Button
@@ -46,7 +45,7 @@ export default function Confirm({ isOpen, onOpenChange, setState }) {
 									onClose();
 								}}
 							>
-								Confirm
+								Delete
 							</Button>
 						</ModalFooter>
 					</>
