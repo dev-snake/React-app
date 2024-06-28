@@ -2,6 +2,14 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export const useFetch = (url) => {
+	// const [data, setData] = useState({
+	// 	products: [],
+	// 	default: {
+	// 		name: '',
+	// 		price: 0,
+	// 		image: ''
+	// 	}
+	// });
 	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);

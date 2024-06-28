@@ -39,7 +39,7 @@ export default function Navigation() {
 		<Navbar
 			isMenuOpen={isMenuOpen}
 			onMenuOpenChange={setIsMenuOpen}
-			className="fixed top-0 left-0 right-0 mx-auto z-[1000] "
+			className="fixed w-full top-0 left-0 right-0 mx-auto z-[1000] "
 			maxWidth="2xl"
 		>
 			<NavbarContent className="sm:hidden">

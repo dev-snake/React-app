@@ -8,7 +8,9 @@ function App() {
 	const { routes } = router;
 	return (
 		<Router>
-			<Header />
+			<div className="w-full">
+				<Header />
+			</div>
 			<Suspense fallback={<SpinnerUi />}>
 				<Routes>
 					{routes.map(({ path, element, children }) => (
