@@ -21,6 +21,7 @@ export const useAddressData = () => {
 	const fetchDistricts = useCallback(async (provinceId) => {
 		try {
 			const response = await axios.get(`${API.ADDRESS.DISTRICTS}/${provinceId}`);
+			console.log(response);
 			setData((prev) => ({ ...prev, districts: response.data.results, wards: [] }));
 		} catch (err) {
 			setError(err.message);

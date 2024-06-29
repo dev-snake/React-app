@@ -6,7 +6,6 @@ export default function CartItem() {
 	const handleIncreaseQuantity = (productId) => increaseQuantity(productId);
 	const handleDecreaseQuantity = (productId) => decreaseQuantity(productId);
 	const handleRemoveItem = (productId) => removeItem(productId);
-	console.log(cartItems);
 	return (
 		<div className="p-1 mt-8 mb-4 mx-2 grid gap-3">
 			{cartItems.map((cart, index) => (

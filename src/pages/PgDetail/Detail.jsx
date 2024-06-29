@@ -8,6 +8,7 @@ import { API } from '../../service/api/API';
 import { formatMoney } from '../../utils/formatNumber';
 import { useEffect, useState } from 'react';
 import useCart from '../../Hooks/useCart';
+import { toast } from 'sonner';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
@@ -22,6 +23,7 @@ export default function PageDetail() {
 	}, [productId, data, isLoading]);
 	const handleAddToCart = (productId) => {
 		addToCart(productId, data);
+		toast.success('Thêm sản phẩm vào giỏ hàng thành công');
 	};
 
 	if (!productDetail) {
