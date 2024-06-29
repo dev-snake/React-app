@@ -1,5 +1,8 @@
 import { Button } from '@nextui-org/react';
+import useCart from '../../../Hooks/useCart';
+import { formatMoney } from '../../../utils/formatNumber';
 function ButtonPayment() {
+	const { getTotalPrice } = useCart();
 	return (
 		<>
 			<hr className="mt-4" />
@@ -10,10 +13,10 @@ function ButtonPayment() {
 				</div>
 				<div className="flex justify-between mt-2">
 					<span className="text-[18px] font-semibold">Tổng tiền :</span>
-					<strong className="text-[20px]">40.000₫</strong>
+					<strong className="text-[20px]">{formatMoney(getTotalPrice())} ₫</strong>
 				</div>
 				<div className="mt-2">
-					<Button className=" h-16 bg-blue-500 text-white w-full py-4 rounded-[4px] text-[18px]  tracking-[1.6px]">
+					<Button className="block w-full" radius="sm" size="lg" color="primary">
 						Đặt hàng ngay
 					</Button>
 				</div>

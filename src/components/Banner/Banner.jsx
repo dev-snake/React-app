@@ -4,16 +4,21 @@ import { Card, CardHeader, CardBody } from '@nextui-org/react';
 export default function Banner() {
 	return (
 		<section className="max-w-[1500px] mx-auto max-xl:p-2 ">
-			<div className="w-full h-[500px] rounded-2xl max-sm:p-4 mt-20">
+			<div className="w-full h-[500px] rounded-2xl max-sm:p-4 lg:mt-20">
 				<img
 					src={keyboardImage}
 					alt="errr"
 					className="h-full w-full object-cover rounded-2xl"
 				/>
 			</div>
-			<div className="mt-4 grid sm:flex w-full gap-2 max-sm:p-4 max-md:grid">
+			<div className="mt-4 grid sm:flex w-full gap-2 max-sm:p-4 max-[850px]:flex max-[850px]:flex-col">
 				<div>
-					<img src={bannerGreen} alt="" className="rounded-2xl" loading="lazy" />
+					<img
+						src={bannerGreen}
+						alt=""
+						className="h-full rounded-2xl w-full"
+						loading="lazy"
+					/>
 				</div>
 				<div className="grid w-full grid-cols-3 gap-4 max-sm:grid-cols-1">
 					<Card isPressable>

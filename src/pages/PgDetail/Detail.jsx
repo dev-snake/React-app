@@ -1,4 +1,3 @@
-import ImageTest from '../../assets/images/m1wden.png';
 import TechInfor from './TechInfor/TechInfor';
 import SimilarProduct from './SimilarProduct/SimilarProduct';
 import Feedback from './Feedback/Feedback';
@@ -8,25 +7,30 @@ import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
 import { formatMoney } from '../../utils/formatNumber';
 import { useEffect, useState } from 'react';
+import useCart from '../../Hooks/useCart';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const [productDetail, setProductDetail] = useState(null);
+	const { cartItems, addToCart } = useCart();
+
 	useEffect(() => {
 		if (!isLoading) {
 			const product = data.find((item) => item._id === productId);
 			setProductDetail(product);
 		}
 	}, [productId, data, isLoading]);
+	const handleAddToCart = (productId) => {
+		addToCart(productId, data);
+	};
+
 	if (!productDetail) {
 		return <div>Product not found</div>;
 	}
+	console.log(cartItems);
 	return (
 		<section className="max-w-[1300px] mx-auto mt-20  shadow-sm rounded-sm ">
-			<div
-				className="flex bg-white
-			 max-[998px]:grid max-[998px]:m-4"
-			>
+			<div className="flex bg-white max-[998px]:grid max-[998px]:m-4">
 				<Card className="basis-[35%]  h-full m98:border-r-2" radius="none" isPressable>
 					<div className="flex justify-center m-4 ">
 						<Image
@@ -103,6 +107,9 @@ export default function PageDetail() {
 							color="primary"
 							radius="md"
 							className="m98:max-w-[400px] h-12  block w-full text-white font-medium rounded-sm mt-4 max-[998px]:w-full max-[998px]:block"
+							onClick={() => {
+								handleAddToCart(productDetail._id);
+							}}
 						>
 							Mua hàng
 						</Button>

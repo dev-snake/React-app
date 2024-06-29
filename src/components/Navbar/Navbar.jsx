@@ -13,11 +13,12 @@ import {
 	DropdownItem,
 	Avatar,
 	DropdownMenu,
-	DropdownTrigger
+	DropdownTrigger,
+	Button
 } from '@nextui-org/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
-import { getIsLoggedIn, removeToken } from '../../utils/saveStatus';
+import { removeToken, isLoggedIn } from '../../utils/saveStatus';
 
 // Constants
 const navList = [
@@ -31,24 +32,22 @@ const option1 = [
 	{ path: '/auth/register', label: 'Đăng Kí' }
 ];
 
-const option2 = [{ path: '/profile', label: 'Hồ sơ' }];
+const option2 = [{ path: '/profile', label: 'Hồ sơ', icon: <i class="fa-regular fa-user"></i> }];
 
-// Component
 export default function Navigation() {
+	const navigate = useNavigate();
 	const { pathname } = useLocation();
-	const [isLoggedIn, setIsLoggedIn] = useState(getIsLoggedIn());
 	const [path, setPath] = useState({ isPath: false, route: '/admin' });
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 	useEffect(() => {
 		setPath({ isPath: pathname.startsWith(path.route), route: '/admin' });
 	}, [path.route, pathname]);
-
 	const handleLogout = () => {
-		setIsLoggedIn(false);
+		localStorage.removeItem('isLoggedIn');
 		removeToken();
+		navigate('auth/login');
 	};
-
+	console.log(isLoggedIn());
 	return (
 		<Navbar
 			isMenuOpen={isMenuOpen}
@@ -56,12 +55,10 @@ export default function Navigation() {
 			className="fixed w-full top-0 left-0 right-0 mx-auto z-[1000] "
 			maxWidth="2xl"
 		>
-			{/* Menu toggle for smaller screens */}
 			<NavbarContent className="sm:hidden">
 				<NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
 			</NavbarContent>
 
-			{/* Branding */}
 			<NavbarContent justify="start" as="div">
 				<NavbarBrand className="mr-4">
 					<Link className="font-bold text-inherit" to={'/'}>
@@ -70,7 +67,6 @@ export default function Navigation() {
 				</NavbarBrand>
 			</NavbarContent>
 
-			{/* Navigation items */}
 			<NavbarContent className="hidden sm:flex gap-3" justify="center">
 				{path.isPath ? (
 					<NavbarItem>
@@ -91,7 +87,6 @@ export default function Navigation() {
 				)}
 			</NavbarContent>
 
-			{/* User actions */}
 			<NavbarContent as="div" className="items-center" justify="end">
 				<Input
 					classNames={{
@@ -103,6 +98,11 @@ export default function Navigation() {
 					startContent={<SearchIcon size={18} />}
 					type="search"
 				/>
+				<Button isIconOnly color="danger" size="sm" variant="shadow">
+					<Link to={'cart/cart-item'}>
+						<i className="fa-solid fa-cart-shopping"></i>
+					</Link>
+				</Button>
 				<Dropdown placement="bottom-end" className="mt-10">
 					<DropdownTrigger>
 						<Avatar
@@ -114,9 +114,9 @@ export default function Navigation() {
 						/>
 					</DropdownTrigger>
 					<DropdownMenu variant="flat">
-						{isLoggedIn
+						{isLoggedIn()
 							? option2.map((item) => (
-									<DropdownItem key={item.path}>
+									<DropdownItem key={item.path} startContent={item.icon}>
 										<Link to={item.path}>{item.label}</Link>
 									</DropdownItem>
 							  ))
@@ -125,14 +125,19 @@ export default function Navigation() {
 										<Link to={item.path}>{item.label}</Link>
 									</DropdownItem>
 							  ))}
-						{isLoggedIn && (
-							<DropdownItem onClick={handleLogout}>Đăng xuất</DropdownItem>
+						{isLoggedIn() && (
+							<DropdownItem
+								color="danger"
+								onClick={handleLogout}
+								startContent={<i class="fa-solid fa-right-from-bracket"></i>}
+							>
+								Đăng xuất
+							</DropdownItem>
 						)}
 					</DropdownMenu>
 				</Dropdown>
 			</NavbarContent>
 
-			{/* Bottom menu */}
 			<NavbarMenu>
 				{navList.map(({ label, path }, index) => (
 					<NavbarMenuItem key={`${label}-${index}`}>

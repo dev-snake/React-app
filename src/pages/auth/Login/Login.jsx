@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../../../service/api/API';
 import { useNavigate } from 'react-router-dom';
-import { saveToken, saveIsLoggedIn } from '../../../utils/saveStatus';
+import { saveToken } from '../../../utils/saveStatus';
 export default function Login() {
 	const navigate = useNavigate();
 	const [user, setUser] = useState({
@@ -21,10 +21,9 @@ export default function Login() {
 			try {
 				const response = await axios.post(`${API.USERS}/login`, user);
 				saveToken(response.data.token);
-				saveIsLoggedIn(true);
+				localStorage.setItem('isLoggedIn', true);
 				toast.success('Đăng nhập thành công !');
 				navigate('/');
-				console.log(response);
 			} catch (error) {
 				toast.error(error.response.data.message);
 			}
