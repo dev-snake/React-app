@@ -18,7 +18,7 @@ import {
 } from '@nextui-org/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
-import { removeToken, isLoggedIn } from '../../utils/saveStatus';
+import { removeToken, isLoggedIn, isTokenExpired } from '../../utils/saveStatus';
 
 const navList = [
 	{ label: 'Trang chủ', path: '/' },
@@ -41,6 +41,13 @@ export default function Navigation() {
 	useEffect(() => {
 		setPath({ isPath: pathname.startsWith(path.route), route: '/admin' });
 	}, [path.route, pathname]);
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token && isTokenExpired(token)) {
+			removeToken();
+			navigate('auth/login');
+		}
+	}, [pathname]);
 	const handleLogout = () => {
 		localStorage.removeItem('isLoggedIn');
 		removeToken();

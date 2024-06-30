@@ -18,9 +18,10 @@ class UserController {
 			if (!user) return res.status(400).json('Username không tồn tại !');
 			const comparePassword = await bcrypt.compare(password, user.password);
 			if (!comparePassword) return res.status(400).json('Password không chính xác !');
-			const payload = req.body;
-			const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
-			return res.status(200).json({ user, token });
+			const payload = { _id: user._id, role: user.role, ...req.body };
+			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
+			const { password: pass, ...infoUser } = user;
+			return res.status(200).json({ infoUser, token });
 		} catch (error) {
 			return res.status(500).json('ERROR SERVER !!');
 		}
@@ -35,6 +36,13 @@ class UserController {
 			const hashPassword = await bcrypt.hash(password, 10);
 			await userModel.create({ ...req.body, password: hashPassword });
 			return res.status(200).json(req.body);
+		} catch (error) {
+			return res.status(500).json('ERROR SERVER !!');
+		}
+	}
+	async profile(req, res) {
+		try {
+			return res.status(200).json(req.user);
 		} catch (error) {
 			return res.status(500).json('ERROR SERVER !!');
 		}
