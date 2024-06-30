@@ -20,7 +20,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
 import { removeToken, isLoggedIn } from '../../utils/saveStatus';
 
-// Constants
 const navList = [
 	{ label: 'Trang chủ', path: '/' },
 	{ label: 'Sản phẩm', path: 'products' },
@@ -47,7 +46,6 @@ export default function Navigation() {
 		removeToken();
 		navigate('auth/login');
 	};
-	console.log(isLoggedIn());
 	return (
 		<Navbar
 			isMenuOpen={isMenuOpen}

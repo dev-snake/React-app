@@ -1,11 +1,24 @@
 import { useFetch } from '../../../Hooks/useFetch';
+import { useEffect, useState } from 'react';
 import { API } from '../../../service/api/API';
 import { Link } from 'react-router-dom';
 import { formatMoney } from '../../../utils/formatNumber';
 import { Card, Image, Chip, Skeleton } from '@nextui-org/react';
-
+import { useParams } from 'react-router-dom';
 export default function ProductList() {
-	const { data, isLoading, error } = useFetch(`${API.PRODUCTS}`);
+	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
+	const { categoryId } = useParams();
+	const [products, setProducts] = useState([]);
+
+	useEffect(() => {
+		if (!isLoading && data.length > 0) {
+			setProducts(data);
+		}
+		if (categoryId) {
+			const filter = data.filter((product) => product.categoryId === +categoryId);
+			setProducts(filter);
+		}
+	}, [categoryId, isLoading]);
 
 	if (isLoading) {
 		return (
@@ -34,14 +47,13 @@ export default function ProductList() {
 			</div>
 		);
 	}
-
 	return (
 		<>
 			<div
 				className="grid grid-cols-5 gap-4 mt-4 max-sm:p-4 transition-all
          max-xl:p-5 max-lg:grid-cols-4 max-[855px]:grid-cols-3 max-sm:grid-cols-2 max-[520px]:grid-cols-1 "
 			>
-				{data.map((product) => (
+				{products.map((product) => (
 					<Card
 						className="w-full bg-white rounded-2xl p-2 transition"
 						key={product._id}
