@@ -1,0 +1,26 @@
+const voucherModel = require('../models/voucherModel');
+class VoucherController {
+	async index(req, res) {
+		try {
+			const vouchers = await voucherModel.find({});
+			return res.status(200).json(vouchers);
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
+	async create(req, res) {
+		try {
+			// const newVoucher = {
+			// 	voucher_name: 'Giảm 100 nghìn đồng',
+			// 	voucher_code: 'GIAM100K',
+			// 	description: 'Giảm 100k cho đơn hàng trên 1 triệu đồng',
+			// 	discount: 100000
+			// };
+			// const voucher = await voucherModel.create(newVoucher);
+			return res.status(201).json(voucher || {});
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
+}
+module.exports = new VoucherController();

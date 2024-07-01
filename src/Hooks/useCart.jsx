@@ -48,6 +48,14 @@ const useCart = () => {
 	const getTotalPrice = () => {
 		return cartItems.reduce((total, { price, quantity }) => total + price * quantity, 0);
 	};
-	return { cartItems, addToCart, increaseQuantity, decreaseQuantity, getTotalPrice, removeItem };
+
+	return {
+		cartItems,
+		addToCart,
+		increaseQuantity,
+		decreaseQuantity,
+		getTotalPrice,
+		removeItem
+	};
 };
 export default useCart;

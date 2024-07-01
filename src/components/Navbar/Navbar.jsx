@@ -18,7 +18,7 @@ import {
 } from '@nextui-org/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
-import { removeToken, isLoggedIn, isTokenExpired } from '../../utils/saveStatus';
+import { removeToken, isLoggedIn, isTokenExpired, accessToken } from '../../utils/saveStatus';
 
 const navList = [
 	{ label: 'Trang chủ', path: '/' },
@@ -31,7 +31,9 @@ const option1 = [
 	{ path: '/auth/register', label: 'Đăng Kí' }
 ];
 
-const option2 = [{ path: '/profile', label: 'Hồ sơ', icon: <i class="fa-regular fa-user"></i> }];
+const option2 = [
+	{ path: '/profile', label: 'Hồ sơ', icon: <i className="fa-regular fa-user"></i> }
+];
 
 export default function Navigation() {
 	const navigate = useNavigate();
@@ -42,14 +44,12 @@ export default function Navigation() {
 		setPath({ isPath: pathname.startsWith(path.route), route: '/admin' });
 	}, [path.route, pathname]);
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token && isTokenExpired(token)) {
+		if (accessToken.token && isTokenExpired(accessToken.token)) {
 			removeToken();
 			navigate('auth/login');
 		}
 	}, [pathname]);
 	const handleLogout = () => {
-		localStorage.removeItem('isLoggedIn');
 		removeToken();
 		navigate('auth/login');
 	};
@@ -134,7 +134,7 @@ export default function Navigation() {
 							<DropdownItem
 								color="danger"
 								onClick={handleLogout}
-								startContent={<i class="fa-solid fa-right-from-bracket"></i>}
+								startContent={<i className="fa-solid fa-right-from-bracket"></i>}
 							>
 								Đăng xuất
 							</DropdownItem>

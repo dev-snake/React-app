@@ -1,7 +1,6 @@
-import ApplyVoucher from './apply-voucher/ApplyVoucher';
-import CartItem from './cart-item/CartItem';
 import Steps from './steps/Steps';
 import { Outlet } from 'react-router-dom';
+import ButtonPayment from './ButtonPayment/ButtonPayment';
 export default function Cart() {
 	return (
 		<div className=" w-full mt-20">

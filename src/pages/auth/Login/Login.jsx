@@ -17,18 +17,17 @@ export default function Login() {
 			toast.warning('Vui lòng nhập đầy đủ thông tin !');
 			return;
 		}
-		const login = async () => {
+		const hanldeLogin = async () => {
 			try {
 				const response = await axios.post(`${API.USERS}/login`, user);
-				saveToken(response.data.token);
-				localStorage.setItem('isLoggedIn', true);
+				saveToken(response.data.token, true);
 				toast.success('Đăng nhập thành công !');
 				navigate('/');
 			} catch (error) {
-				toast.error(error.response.data.message);
+				toast.error(error.response.data);
 			}
 		};
-		login();
+		hanldeLogin();
 	};
 
 	return (

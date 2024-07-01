@@ -19,7 +19,7 @@ class UserController {
 			const comparePassword = await bcrypt.compare(password, user.password);
 			if (!comparePassword) return res.status(400).json('Password không chính xác !');
 			const payload = { _id: user._id, role: user.role, ...req.body };
-			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
+			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 			const { password: pass, ...infoUser } = user;
 			return res.status(200).json({ infoUser, token });
 		} catch (error) {

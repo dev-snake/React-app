@@ -1,16 +1,33 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import ImageSale from '../../../assets/images/saleVoucher.png';
 import ButtonPayment from '../ButtonPayment/ButtonPayment';
 import { Button, Input } from '@nextui-org/react';
-
+import { API } from '../../../service/api/API';
+import { useFetch } from '../../../Hooks/useFetch';
+import SpinnerUi from '../../../components/common/Spinner';
+import formatDate from '../../../utils/formatDate';
+import useCart from '../../../Hooks/useCart';
 export default function ApplyVoucher() {
+	const { data, isLoading } = useFetch(`${API.VOUCHERS}`);
 	const [isShow, setIsShow] = useState(false);
+	const [voucherApplied, setVoucherApplied] = useState([]);
+	const voucherLocalstorage = localStorage.getItem('voucher');
+	const handleClickApply = (voucherId) => {
+		const voucher = data.find((voucher) => voucher._id === voucherId);
+		localStorage.setItem('voucher', JSON.stringify([voucher]));
+		setVoucherApplied([voucher]);
+	};
+	useEffect(() => {
+		// console.log(voucherLocalstorage);
+	}, [voucherApplied]);
 	const handleClickShow = () => {
 		setIsShow(!isShow);
 	};
-
+	if (isLoading) {
+		return <SpinnerUi />;
+	}
 	return (
-		<div className="p-1 m-2">
+		<>
 			<div>
 				<div className="text-blue-500 inline-block p-2 border-[1px] rounded-md cursor-pointer">
 					<i className="fa-solid fa-ticket mr-2 "></i>
@@ -34,16 +51,14 @@ export default function ApplyVoucher() {
 								: 'max-h-0 opacity-0 overflow-hidden'
 						}`}
 					>
-						<FormVoucher />
+						<FormVoucher data={data} applyVoucher={handleClickApply} />
 					</div>
-					<ButtonPayment />
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
-
-function FormVoucher() {
+function FormVoucher({ data, applyVoucher }) {
 	return (
 		<Fragment>
 			<div className="bg-slate-50 p-2 flex gap-2 rounded-md items-center">
@@ -52,35 +67,45 @@ function FormVoucher() {
 					className="grow-[2] outline-none p-2"
 					placeholder="Nhập mã giảm giá/Phiếu mua hàng"
 				/>
-				<Button className="h-10  font-medium" color="primary">
-					Áp dụng
-				</Button>
+				<Button color="primary">Áp dụng</Button>
 			</div>
 			<div className="mt-2 grid gap-2">
-				<div className="border-[1px] p-1 rounded-lg flex gap-2">
-					<div>
-						<img src={ImageSale} alt="" className="w-[72px] h-[72px]" />
-					</div>
-					<div className="grow-[2]">
+				{data?.map((voucher, index) => (
+					<div className="border-[1px] p-1 rounded-lg flex gap-2" key={index}>
 						<div>
-							<h3 className="text-[13px] font-semibold">Giảm 50.000₫</h3>
-							<p className="text-[11px]">Giảm ngay 50.000đ khi mua Tai Nghe Razer.</p>
+							<img src={ImageSale} alt="" className="w-[72px] h-[72px]" />
 						</div>
-						<div className="flex justify-between">
+						<div className="grow-[2]">
 							<div>
-								<p className="text-[11px]">
-									Mã: <strong>TAINGHERAZER</strong>
-								</p>
-								<p className="text-[10px]">HSD: Chủ nhật, 23:59 30 Thg 06, 2024</p>
+								<h3 className="text-[13px] font-semibold">
+									{voucher.voucher_name}
+								</h3>
+								<p className="text-[11px]">{voucher.description}</p>
 							</div>
-							<div className="self-end">
-								<button className="bg-blue-500 text-white outline-none px-4 rounded-2xl text-xs py-1">
-									Áp mã
-								</button>
+							<div className="flex justify-between">
+								<div>
+									<p className="text-[11px]">
+										Mã: <strong>{voucher.voucher_code}</strong>
+									</p>
+									<p className="text-[10px]">
+										HSD: <strong>{formatDate(voucher.expiry_date)}</strong>
+									</p>
+								</div>
+								<div className="self-end">
+									<Button
+										radius="md"
+										size="sm"
+										color="primary"
+										variant="shadow"
+										onClick={() => applyVoucher(voucher._id)}
+									>
+										Áp mã
+									</Button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</Fragment>
 	);
