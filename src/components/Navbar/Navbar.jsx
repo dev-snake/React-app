@@ -48,7 +48,7 @@ export default function Navigation() {
 			removeToken();
 			navigate('auth/login');
 		}
-	}, [pathname]);
+	}, []);
 	const handleLogout = () => {
 		removeToken();
 		navigate('auth/login');

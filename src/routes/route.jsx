@@ -23,6 +23,7 @@ const ProductManagement = lazy(() => import('../admin/ProductManagement/ProductM
 const AddProduct = lazy(() => import('../admin/ProductManagement/AddProduct/AddProduct'));
 const EditProduct = lazy(() => import('../admin/ProductManagement/EditProduct/EditProduct'));
 const ProductList = lazy(() => import('../pages/Home/ProductList/ProductList'));
+const OrderedSuccess = lazy(() => import('../pages/Cart/orders-success/OrderedSuccess'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'payment',
 				element: <Payment />
+			},
+			{
+				path: 'order-success',
+				element: <OrderedSuccess />
 			}
 		]
 	},

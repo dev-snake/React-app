@@ -22,6 +22,7 @@ class UserController {
 				_id: user._id,
 				role: user.role,
 				email: user.email,
+				fullname: user.fullname,
 				phonenumber: user.phonenumber,
 				...req.body
 			};

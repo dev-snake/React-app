@@ -2,9 +2,11 @@ import { useAddressData } from '../../../Hooks/useAddress';
 import { Input, Select, SelectItem, Checkbox, Button } from '@nextui-org/react';
 import ButtonPayment from '../ButtonPayment/ButtonPayment';
 import SpinnerUi from '../../../components/common/Spinner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useCart from '../../../Hooks/useCart';
+import { accessToken } from '../../../utils/saveStatus';
+import { jwtDecode } from 'jwt-decode';
 function CartInfor() {
 	const { getTotalPrice } = useCart();
 	const navigate = useNavigate();
@@ -17,7 +19,7 @@ function CartInfor() {
 		district: '',
 		ward: '',
 		specificAddress: '',
-		voucher: JSON.parse(localStorage.getItem('voucher') || '[]')[0].discount || 0,
+		voucher: JSON.parse(localStorage.getItem('voucher') || '[]')[0]?.discount || 0,
 		methodPayment: 'Thanh toán khi nhận hàng (COD)',
 		total: getTotalPrice(),
 		products: JSON.parse(localStorage.getItem('cartItems') || '[]')
@@ -27,6 +29,17 @@ function CartInfor() {
 		localStorage.setItem('inforOrder', JSON.stringify(inforOrder));
 		navigate('/cart/payment');
 	};
+	useEffect(() => {
+		if (accessToken.token) {
+			const decodedToken = jwtDecode(accessToken.token);
+			setInforOrder({
+				...inforOrder,
+				fullname: decodedToken.fullname,
+				phonenumber: decodedToken.phonenumber
+			});
+		}
+	}, []);
+	console.log(inforOrder);
 	return (
 		<div className="p-3">
 			<h2 className="font-semibold text-[1rem]">Thông tin khách mua hàng</h2>
@@ -60,6 +73,7 @@ function CartInfor() {
 						<Input
 							type="text"
 							label="Họ và tên"
+							value={inforOrder.fullname}
 							size="md"
 							onChange={(e) =>
 								setInforOrder({ ...inforOrder, fullname: e.target.value })
@@ -70,6 +84,7 @@ function CartInfor() {
 					<div className="relative">
 						<Input
 							type="text"
+							value={inforOrder.phonenumber}
 							label="Số điện thoại"
 							size="md"
 							onChange={(e) =>

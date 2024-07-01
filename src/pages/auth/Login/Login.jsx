@@ -21,7 +21,7 @@ export default function Login() {
 			try {
 				const response = await axios.post(`${API.USERS}/login`, user);
 				saveToken(response.data.token, true);
-				toast.success('Đăng nhập thành công !');
+				toast.success('Đăng nhập thành công !', { duration: 1000 });
 				navigate('/');
 			} catch (error) {
 				toast.error(error.response.data);

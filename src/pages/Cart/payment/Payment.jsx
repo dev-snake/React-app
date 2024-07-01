@@ -5,7 +5,9 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { config } from '../../../config/config';
 import { API } from '../../../service/api/API';
+import { useNavigate } from 'react-router-dom';
 function Payment() {
+	const navigate = useNavigate();
 	const shippingFee = 40000;
 	const inforOrder = JSON.parse(localStorage.getItem('inforOrder') || '{}');
 	const handleSubmitOrder = () => {
@@ -20,6 +22,10 @@ function Payment() {
 			success: 'Đặt hàng thành công',
 			error: (error) => `${error}`
 		});
+		localStorage.removeItem('inforOrder');
+		localStorage.removeItem('cartItems');
+		localStorage.removeItem('voucher');
+		navigate('cart/order-success');
 	};
 	return (
 		<div className="p-5">

@@ -9,6 +9,7 @@ import { formatMoney } from '../../utils/formatNumber';
 import { useEffect, useState } from 'react';
 import useCart from '../../Hooks/useCart';
 import { toast } from 'sonner';
+import { accessToken } from '../../utils/saveStatus';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
@@ -22,6 +23,10 @@ export default function PageDetail() {
 		}
 	}, [productId, data, isLoading]);
 	const handleAddToCart = (productId) => {
+		if (!accessToken.token) {
+			toast.error('Vui lòng đăng nhập để mua hàng  !', { duration: 1000 });
+			return;
+		}
 		addToCart(productId, data);
 		toast.success('Thêm sản phẩm vào giỏ hàng thành công');
 	};
