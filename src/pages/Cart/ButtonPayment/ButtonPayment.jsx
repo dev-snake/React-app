@@ -1,9 +1,11 @@
 import { Button, Chip } from '@nextui-org/react';
 import { formatMoney } from '../../../utils/formatNumber';
 import useCart from '../../../Hooks/useCart';
+import { useEffect } from 'react';
 function ButtonPayment({ totalPrice }) {
 	const { getTotalPrice } = useCart();
 	const voucher = JSON.parse(localStorage.getItem('voucher') || '[]');
+
 	return (
 		<>
 			<hr className="mt-4" />
@@ -37,11 +39,6 @@ function ButtonPayment({ totalPrice }) {
 					<strong className="text-[20px]">
 						{totalPrice || formatMoney(getTotalPrice())} ₫
 					</strong>
-				</div>
-				<div className="mt-2">
-					<Button className="block w-full" radius="sm" size="lg" color="primary">
-						Đặt hàng ngay
-					</Button>
 				</div>
 			</div>
 		</>

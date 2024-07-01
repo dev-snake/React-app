@@ -9,7 +9,7 @@ export default function CartItem() {
 	const handleIncreaseQuantity = (productId) => increaseQuantity(productId);
 	const handleDecreaseQuantity = (productId) => decreaseQuantity(productId);
 	const handleRemoveItem = (productId) => removeItem(productId);
-	useEffect(() => {}, [cartItems]);
+
 	return (
 		<>
 			<div className="p-1 mt-8 mb-4 mx-2 grid gap-3">
@@ -78,8 +78,8 @@ export default function CartItem() {
 				))}
 			</div>
 			<div className="p-3">
-				<ApplyVoucher />
-				<ButtonPayment totalPrice={formatMoney(getTotalPrice())} />
+				<ApplyVoucher totalPrice={formatMoney(getTotalPrice())} />
+				{/* <ButtonPayment totalPrice={formatMoney(getTotalPrice())} /> */}
 			</div>
 		</>
 	);

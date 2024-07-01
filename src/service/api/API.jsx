@@ -8,6 +8,7 @@ const API = {
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,
 	CATEGORIES: `${BASE_URL}/categories`,
-	VOUCHERS: `${BASE_URL}/vouchers`
+	VOUCHERS: `${BASE_URL}/vouchers`,
+	CREATE_ORDER: `${BASE_URL}/orders/create-order`
 };
 export { API };

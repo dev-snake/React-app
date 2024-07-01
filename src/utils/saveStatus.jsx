@@ -18,7 +18,7 @@ const saveToken = (token, stateLogin) => {
 const removeToken = () => {
 	localStorage.removeItem('token');
 };
-const accessToken = localStorage.getItem('token');
+const accessToken = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : {};
 const isLoggedIn = () => {
 	const token = localStorage.getItem('token');
 	if (!token) return false;

@@ -1,25 +1,31 @@
 import { useState, Fragment, useEffect } from 'react';
 import ImageSale from '../../../assets/images/saleVoucher.png';
-import ButtonPayment from '../ButtonPayment/ButtonPayment';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input, Chip } from '@nextui-org/react';
 import { API } from '../../../service/api/API';
 import { useFetch } from '../../../Hooks/useFetch';
 import SpinnerUi from '../../../components/common/Spinner';
 import formatDate from '../../../utils/formatDate';
+import { formatMoney } from '../../../utils/formatNumber';
+import { Link } from 'react-router-dom';
 import useCart from '../../../Hooks/useCart';
-export default function ApplyVoucher() {
+import { toast } from 'sonner';
+export default function ApplyVoucher({ totalPrice }) {
 	const { data, isLoading } = useFetch(`${API.VOUCHERS}`);
+	const { cartItems } = useCart();
 	const [isShow, setIsShow] = useState(false);
 	const [voucherApplied, setVoucherApplied] = useState([]);
-	const voucherLocalstorage = localStorage.getItem('voucher');
+	const voucher = JSON.parse(localStorage.getItem('voucher') || '[]');
 	const handleClickApply = (voucherId) => {
+		if (cartItems.length <= 0) {
+			localStorage.removeItem('voucher');
+			setVoucherApplied([]);
+			toast.warning('Vui lòng thêm sản phẩm vào giỏ hàng');
+			return;
+		}
 		const voucher = data.find((voucher) => voucher._id === voucherId);
 		localStorage.setItem('voucher', JSON.stringify([voucher]));
 		setVoucherApplied([voucher]);
 	};
-	useEffect(() => {
-		// console.log(voucherLocalstorage);
-	}, [voucherApplied]);
 	const handleClickShow = () => {
 		setIsShow(!isShow);
 	};
@@ -51,8 +57,57 @@ export default function ApplyVoucher() {
 								: 'max-h-0 opacity-0 overflow-hidden'
 						}`}
 					>
-						<FormVoucher data={data} applyVoucher={handleClickApply} />
+						<FormVoucher
+							data={data}
+							applyVoucher={handleClickApply}
+							vouchers={voucherApplied}
+						/>
 					</div>
+					<>
+						<hr className="mt-4" />
+						<div className="mt-4">
+							{voucher.length > 0 && (
+								<div className="flex justify-between mb-2">
+									<span className="text-[1rem] font-semibold">
+										Mã giảm giá :
+										<Chip
+											color="primary"
+											radius="sm	"
+											className="p-1 ml-2 cursor-pointer"
+											size="sm"
+											variant="shadow"
+											endContent={
+												<i className="fa-regular fa-circle-xmark"></i>
+											}
+										>
+											{voucher[0].voucher_code}
+										</Chip>
+									</span>
+									<strong className="text-[14px]">
+										- {formatMoney(voucher[0].discount)} đ
+									</strong>
+								</div>
+							)}
+							<div className="flex justify-between">
+								<span className="text-[1rem] font-semibold">Phí vận chuyển :</span>
+								<strong className="text-[14px]">40.000₫</strong>
+							</div>
+							<div className="flex justify-between mt-2">
+								<span className="text-[18px] font-semibold">Tổng tiền :</span>
+								<strong className="text-[20px]">{totalPrice}₫</strong>
+							</div>
+							<div className="mt-2">
+								<Button
+									className="block w-full"
+									radius="sm"
+									size="lg"
+									color="primary"
+								>
+									<Link to="/cart/cart-infor-order-box">Đặt hàng ngay </Link>
+								</Button>
+							</div>
+						</div>
+					</>
 				</div>
 			</div>
 		</>
