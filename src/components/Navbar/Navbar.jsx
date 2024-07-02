@@ -19,21 +19,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './SearchIcon';
 import { removeToken, isLoggedIn, isTokenExpired, accessToken } from '../../utils/saveStatus';
-
-const navList = [
-	{ label: 'Trang chủ', path: '/' },
-	{ label: 'Sản phẩm', path: 'products' },
-	{ label: 'Ranking', path: 'ranking' }
-];
-
-const option1 = [
-	{ path: '/auth/login', label: 'Đăng nhập' },
-	{ path: '/auth/register', label: 'Đăng Kí' }
-];
-
-const option2 = [
-	{ path: '/profile', label: 'Hồ sơ', icon: <i className="fa-regular fa-user"></i> }
-];
+import { navList, option1, option2 } from './data';
 
 export default function Navigation() {
 	const navigate = useNavigate();

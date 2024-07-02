@@ -4,22 +4,31 @@ import { API } from '../../../service/api/API';
 import { Link } from 'react-router-dom';
 import { formatMoney } from '../../../utils/formatNumber';
 import { Card, Image, Chip, Skeleton } from '@nextui-org/react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 export default function ProductList() {
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const { categoryId } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [products, setProducts] = useState([]);
-
 	useEffect(() => {
 		if (!isLoading && data.length > 0) {
 			setProducts(data);
 		}
-		if (categoryId) {
+		if (categoryId && searchParams.get('sort_by') === null) {
 			const filter = data.filter((product) => product.categoryId === +categoryId);
 			setProducts(filter);
 		}
-	}, [categoryId, isLoading]);
-
+		if (searchParams.get('sort_by') !== null) {
+			const sort_type = searchParams.get('sort_by');
+			if (sort_type === 'asc') {
+				const filter = data.sort((a, b) => a.price - b.price);
+				setProducts(filter);
+			} else {
+				const filter = data.sort((a, b) => b.price - a.price);
+				setProducts(filter);
+			}
+		}
+	}, [categoryId, isLoading, searchParams]);
 	if (isLoading) {
 		return (
 			<div

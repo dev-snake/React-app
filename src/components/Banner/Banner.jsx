@@ -1,10 +1,10 @@
 import keyboardImage from '../../assets/images/keyboard1.png';
 import bannerGreen from '../../assets/images/banner.png';
-import { Card, CardHeader, CardBody } from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Image } from '@nextui-org/react';
 export default function Banner() {
 	return (
-		<section className="max-w-[1500px] mx-auto max-xl:p-2 ">
-			<div className="w-full h-[500px] rounded-2xl max-sm:p-4 lg:mt-20">
+		<section className="max-w-[1500px] mx-auto max-xl:p-1  mt-20 ">
+			<div className="w-full h-[500px] rounded-2xl max-sm:p-4 ">
 				<img
 					src={keyboardImage}
 					alt="errr"

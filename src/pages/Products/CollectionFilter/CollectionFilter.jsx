@@ -10,24 +10,39 @@ import {
 import axios from 'axios';
 import { API } from '../../../service/api/API';
 import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 export default function CollectionFilter() {
 	const [categories, setCagegories] = useState([]);
 	const [selectedKeys, setSelectedKeys] = useState(new Set(['Bộ lọc']));
+	const [searchParams, setSearchParams] = useSearchParams();
 	const selectedValue = useMemo(
 		() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '),
 		[selectedKeys]
 	);
+
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
-				const response = await axios.get(`${API.CATEGORIES}`);
-				setCagegories(response.data);
+				const { data } = await axios.get(`${API.CATEGORIES}`);
+				setCagegories(data);
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchCategories();
 	}, []);
+	useEffect(() => {
+		switch (selectedValue) {
+			case 'Sắp xếp tăng dần':
+				setSearchParams({ ...searchParams, sort_by: 'asc' });
+				break;
+			case 'Sắp xếp giảm dần':
+				setSearchParams({ ...searchParams, sort_by: 'desc' });
+				break;
+			default:
+				setSearchParams({});
+		}
+	}, [selectedValue]);
 	return (
 		<div className="h-12 flex justify-between items-center max-md:grid gap-2 ">
 			<ButtonGroup variant="shadow" size="sm" color="primary">
@@ -60,8 +75,7 @@ export default function CollectionFilter() {
 					selectedKeys={selectedKeys}
 					onSelectionChange={setSelectedKeys}
 				>
-					<DropdownItem key="Từ a - z">Từ a - z</DropdownItem>
-					<DropdownItem key="Từ z - a">Từ z - a </DropdownItem>
+					<DropdownItem key="Bộ lọc">Bộ lọc</DropdownItem>
 					<DropdownItem key="Sắp xếp tăng dần">Sắp xếp tăng dần</DropdownItem>
 					<DropdownItem key="Sắp xếp giảm dần">Sắp xếp giảm dần</DropdownItem>
 				</DropdownMenu>
