@@ -26,7 +26,7 @@ class UserController {
 				phonenumber: user.phonenumber,
 				...req.body
 			};
-			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
 			const { password: pass, ...infoUser } = user;
 			return res.status(200).json({ infoUser, token });
 		} catch (error) {

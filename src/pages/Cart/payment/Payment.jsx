@@ -25,7 +25,7 @@ function Payment() {
 		localStorage.removeItem('inforOrder');
 		localStorage.removeItem('cartItems');
 		localStorage.removeItem('voucher');
-		navigate('cart/order-success');
+		navigate('/cart/order-success');
 	};
 	return (
 		<div className="p-5">

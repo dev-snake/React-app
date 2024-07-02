@@ -79,7 +79,6 @@ export default function CartItem() {
 			</div>
 			<div className="p-3">
 				<ApplyVoucher totalPrice={formatMoney(getTotalPrice())} />
-				{/* <ButtonPayment totalPrice={formatMoney(getTotalPrice())} /> */}
 			</div>
 		</>
 	);

@@ -29,6 +29,10 @@ export default function ApplyVoucher({ totalPrice }) {
 	const handleClickShow = () => {
 		setIsShow(!isShow);
 	};
+	const removeVoucher = () => {
+		localStorage.removeItem('voucher');
+		setVoucherApplied([]);
+	};
 	if (isLoading) {
 		return <SpinnerUi />;
 	}
@@ -77,7 +81,10 @@ export default function ApplyVoucher({ totalPrice }) {
 											size="sm"
 											variant="shadow"
 											endContent={
-												<i className="fa-regular fa-circle-xmark"></i>
+												<i
+													className="fa-regular fa-circle-xmark"
+													onClick={removeVoucher}
+												></i>
 											}
 										>
 											{voucher[0].voucher_code}

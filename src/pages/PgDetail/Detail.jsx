@@ -28,7 +28,7 @@ export default function PageDetail() {
 			return;
 		}
 		addToCart(productId, data);
-		toast.success('Thêm sản phẩm vào giỏ hàng thành công');
+		toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
 	};
 
 	if (!productDetail) {
