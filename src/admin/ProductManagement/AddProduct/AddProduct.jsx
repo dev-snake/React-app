@@ -52,10 +52,10 @@ export default function AddProduct() {
 		setVariant(newVariant);
 	};
 	const handleSubmit = async () => {
-		if (state.name === '' || state.price === 0 || state.categoryId === 0) {
-			toast.error('Vui lòng điền đầy đủ thông tin');
-			return;
-		}
+		// if (state.name === '' || state.price === 0 || state.categoryId === 0) {
+		// 	toast.error('Vui lòng điền đầy đủ thông tin');
+		// 	return;
+		// }
 		try {
 			await axios.post(API.PRODUCTS, { ...state, variant });
 			toast.success('Thêm sản phẩm thành công!');

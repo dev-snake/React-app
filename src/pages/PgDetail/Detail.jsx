@@ -24,15 +24,13 @@ export default function PageDetail() {
 			setProductDetail(product);
 		}
 	}, [productId, data, isLoading]);
-	const handleAddToCart = (productId) => {
+	const handleAddToCart = (productId, code) => {
 		if (!accessToken.token) {
 			toast.error('Vui lòng đăng nhập để mua hàng  !', { duration: 1000 });
 			return;
 		}
-		addToCart(productId, data);
-		toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
+		addToCart(productId, data, code);
 	};
-	console.log(variant);
 	if (!productDetail) {
 		return <div>Product not found</div>;
 	}
@@ -102,7 +100,7 @@ export default function PageDetail() {
 						</div>
 						<div>
 							<h1 className="mt-4 font-semibold">
-								Số lượng sản phẩm :{' '}
+								Số lượng sản phẩm :
 								{variant !== null
 									? variant.quantity
 									: productDetail.variant[0].quantity}{' '}
@@ -124,7 +122,9 @@ export default function PageDetail() {
 							radius="md"
 							className="m98:max-w-[400px] h-12  block w-full text-white font-medium rounded-sm mt-4 max-[998px]:w-full max-[998px]:block"
 							onClick={() => {
-								handleAddToCart(productDetail._id);
+								const code =
+									variant !== null ? variant.code : productDetail.variant[0].code;
+								handleAddToCart(productDetail._id, code);
 							}}
 						>
 							Mua hàng

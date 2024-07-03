@@ -1,52 +1,72 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 const useCart = () => {
 	const localStorageCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
 	const [cartItems, setCartItems] = useState(localStorageCart);
 	useEffect(() => {
 		localStorage.setItem('cartItems', JSON.stringify(cartItems));
 	}, [cartItems]);
-	const addToCart = (productId, data) => {
-		setCartItems((prev) => {
-			const product = data.find((item) => item._id === productId);
-			const existProduct = prev.find((item) => item._id === productId);
-			if (existProduct) {
-				existProduct.quantity += 1;
-				return [...prev];
+	const addToCart = (productId, data, code) => {
+		const product = data.find((item) => item._id === productId);
+		const color = product.variant.find((item) => item.code === code);
+		const existProduct = cartItems.find((item) => item._id === productId);
+		if (existProduct) {
+			const findColor = existProduct.color.find((item) => item.code === code);
+			if (findColor) {
+				if (findColor.quantityCart >= findColor.quantity) {
+					toast.warning('Sản phẩm đã hết !', { duration: 1000 });
+					return;
+				}
+				findColor.quantityCart += 1;
+				toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
+				setCartItems([...cartItems]);
 			} else {
-				return [...prev, { ...product, quantity: 1 }];
+				toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
+				existProduct.color.push({ ...color, quantityCart: 1 });
+				setCartItems([...cartItems]);
 			}
-		});
+		} else {
+			toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
+			cartItems.push({ ...product, color: [{ ...color, quantityCart: 1 }] });
+			setCartItems([...cartItems]);
+		}
 	};
-	const increaseQuantity = (productId) => {
+	const increaseQuantity = (productId, codeColor) => {
+		const product = cartItems.find((item) => item._id === productId);
+		const color = product.color.find((item) => item.code === codeColor);
+		if (color.quantityCart >= color.quantity) {
+			toast.warning('Sản phẩm đã hết !', { duration: 1000 });
+			return;
+		}
+		color.quantityCart += 1;
+		setCartItems([...cartItems]);
+	};
+	const decreaseQuantity = (productId, colorCode) => {
+		const product = cartItems.find((item) => item._id === productId);
+		const color = product.color.find((item) => item.code === colorCode);
+		if (color.quantityCart === 1) {
+			removeItem(productId, colorCode);
+			return;
+		}
+		color.quantityCart -= 1;
+		setCartItems([...cartItems]);
+	};
+	const removeItem = (productId, colorCode) => {
 		setCartItems((prev) => {
-			return prev.map((item) => {
-				if (item._id === productId) {
-					item.quantity += 1;
-				}
-				return item;
-			});
+			const product = prev.find((p) => p._id === productId);
+			const newColor = product.color.filter((c) => c.code !== colorCode);
+			return prev.map((p) => (p._id === productId ? { ...p, color: newColor } : p));
 		});
-	};
-	const decreaseQuantity = (productId) => {
-		setCartItems((prev) => {
-			const existProduct = prev.find((item) => item._id === productId);
-			if (existProduct.quantity === 1) {
-				return prev.filter((item) => item._id !== productId);
-			}
-			return prev.map((item) => {
-				if (item._id === productId) {
-					item.quantity -= 1;
-				}
-				return item;
-			});
-		});
-	};
-	const removeItem = (productId) => {
-		setCartItems((prev) => prev.filter((item) => item._id !== productId));
 	};
 
 	const getTotalPrice = () => {
-		return cartItems.reduce((total, { price, quantity }) => total + price * quantity, 0);
+		const total = cartItems.reduce((acc, item) => {
+			const totalItem = item.color.reduce((acc, color) => {
+				return acc + color.price * color.quantityCart;
+			}, 0);
+			return acc + totalItem;
+		}, 0);
+		return total;
 	};
 
 	return {

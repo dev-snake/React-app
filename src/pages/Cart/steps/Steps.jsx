@@ -2,16 +2,11 @@ import { Button, Tooltip } from '@nextui-org/react';
 import { Link } from 'react-router-dom';
 import { Steps as NavSteps } from './Data';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 export default function Steps() {
 	const location = useLocation();
-	useEffect(() => {
-		console.log('re-render');
-	}, [location]);
 	const getCurrentStepIndex = () => {
 		return NavSteps.findIndex((step) => location.pathname.includes(step.path));
 	};
-
 	const currentStepIndex = getCurrentStepIndex();
 
 	return (
