@@ -9,7 +9,11 @@ import {
 	Image,
 	Tooltip,
 	useDisclosure,
-	Spinner
+	Spinner,
+	SelectItem,
+	Select,
+	Chip,
+	Code
 } from '@nextui-org/react';
 import Confirm from './Confirm/Confirm';
 import { toast } from 'sonner';
@@ -98,19 +102,48 @@ export default function ProductManagement() {
 								<Image src={item.image} alt="" width={100} />
 							</TableCell>
 							<TableCell>{item.name}</TableCell>
-							<TableCell>{item.quantityImported}</TableCell>
-							<TableCell>{item.quantity_sold}</TableCell>
+							<TableCell>
+								{item.variant.reduce((acc, item) => acc + item.quantity, 0)}
+							</TableCell>
+							<TableCell>
+								<Select
+									label="SL bán"
+									size="sm"
+									className="max-w-xs"
+									variant="underlined"
+								>
+									{item.variant.map((variant, index) => (
+										<SelectItem key={variant.color}>
+											<div className="flex justify-between">
+												<Chip
+													size="sm"
+													radius="sm"
+													color="danger"
+													variant="flat"
+												>
+													{variant.color}
+												</Chip>
+												{variant.quantity_sold}
+											</div>
+										</SelectItem>
+									))}
+								</Select>
+							</TableCell>
 							<TableCell>{formatMoney(item.price)} đ</TableCell>
 							<TableCell>
 								{item.categoryId === 1
 									? 'Chuột Gaming'
 									: item.categoryId === 2
+									? 'Bàn phím cơ'
+									: item.categoryId === 3
 									? 'Tai nghe'
-									: 'Phím Cơ'}
+									: item.categoryId === 4
+									? 'Keycap'
+									: 'Dây cáp'}
 							</TableCell>
 							<TableCell>
-								{item.quantityImported - item.quantity_sold > 0
-									? 'Còn hàng '
+								{item.variant.reduce((acc, item) => acc + item.quantity, 0) > 0
+									? 'Còn hàng'
 									: 'Hết hàng'}
 							</TableCell>
 							<TableCell>
