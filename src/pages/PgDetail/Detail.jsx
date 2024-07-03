@@ -1,7 +1,7 @@
 import TechInfor from './TechInfor/TechInfor';
 import SimilarProduct from './SimilarProduct/SimilarProduct';
 import Feedback from './Feedback/Feedback';
-import { Image, Chip, Button, Card } from '@nextui-org/react';
+import { Image, Chip, Button, Card, Tooltip } from '@nextui-org/react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
@@ -10,12 +10,14 @@ import { useEffect, useState } from 'react';
 import useCart from '../../Hooks/useCart';
 import { toast } from 'sonner';
 import { accessToken } from '../../utils/saveStatus';
+import { color } from 'framer-motion';
 export default function PageDetail() {
 	const { productId } = useParams();
+	const [activeIndex, setActiveIndex] = useState(null);
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const [productDetail, setProductDetail] = useState(null);
 	const { cartItems, addToCart } = useCart();
-
+	const [variant, setVariant] = useState(null);
 	useEffect(() => {
 		if (!isLoading) {
 			const product = data.find((item) => item._id === productId);
@@ -30,59 +32,50 @@ export default function PageDetail() {
 		addToCart(productId, data);
 		toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
 	};
-
+	console.log(variant);
 	if (!productDetail) {
 		return <div>Product not found</div>;
 	}
-	console.log(cartItems);
+	const changeColor = (index, color) => {
+		const filter = productDetail.variant.find((item) => item.color === color);
+		setVariant(filter);
+		setActiveIndex(index);
+	};
 	return (
 		<section className="max-w-[1300px] mx-auto mt-20  shadow-sm rounded-sm ">
 			<div className="flex bg-white max-[998px]:grid max-[998px]:m-4">
-				<Card className="basis-[35%]  h-full m98:border-r-2" radius="none" isPressable>
+				<div className="basis-[35%]  h-full m98:border-r-2">
 					<div className="flex justify-center m-4 ">
 						<Image
-							src={productDetail.image}
+							src={variant !== null ? variant.image : productDetail.variant[0].image}
+							radius="none"
 							alt=""
-							className="w-[372px] h-[372px] object-cover "
 						/>
 					</div>
 					<div className="m-4 flex gap-2">
-						<div className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2">
-							<Image
-								src="https://product.hstatic.net/200000722513/product/9ktbn43h_c8d1e233aee24077ae3ccb8061b5c7bc_grande.png"
-								alt=""
-								className="w-full h-full"
-							/>
-						</div>
-						<div className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2">
-							<Image
-								src="https://product.hstatic.net/200000722513/product/bfo6ep9j_37d6891e25d94d7fa37cd147bc3464e8_grande.png"
-								alt=""
-								className="w-full h-full"
-							/>
-						</div>
-						<div className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2">
-							<Image
-								src="https://product.hstatic.net/200000722513/product/32q6ue9b_dd64156f5869455da6d4172f9faa0fa0_compact.png"
-								alt=""
-								className="w-full h-full"
-							/>
-						</div>
-						<div className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2">
-							<Image
-								src="https://product.hstatic.net/200000722513/product/32q6ue9b_dd64156f5869455da6d4172f9faa0fa0_compact.png"
-								alt=""
-								className="w-full h-full"
-							/>
-						</div>
+						{productDetail?.variant.map((item, index) => (
+							<div
+								className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2"
+								key={index}
+							>
+								<Image
+									src={item.image}
+									alt=""
+									radius="none"
+									className="w-full h-full"
+								/>
+							</div>
+						))}
 					</div>
-				</Card>
+				</div>
 				<div className="flex-grow-[2] p-4">
 					<span className="text-2xl font-medium">{productDetail.name}</span>
-					<span className="block text-xl mt-2">0 Xem đánh giá</span>
 					<span className="flex items-center gap-5 mt-2">
 						<span className="text-2xl font-semibold">
-							{formatMoney(productDetail.price)} ₫
+							{formatMoney(
+								variant !== null ? variant.price : productDetail.variant[0].price
+							)}
+							₫
 						</span>
 						<del className="text-[18px]">
 							{formatMoney(productDetail.price + 9999)}₫
@@ -91,25 +84,41 @@ export default function PageDetail() {
 							{productDetail.discount} %
 						</Chip>
 					</span>
-					<div className="flex gap-4 mt-4">
-						<button>
-							<img
-								src="https://product.hstatic.net/200000722513/product/bfo6ep9j_37d6891e25d94d7fa37cd147bc3464e8_grande.png"
-								alt=""
-								className="w-12 h-12 border-2 rounded-sm"
-							/>
-							<span className="text-xs font-medium">Đen</span>
-						</button>
-						<button>
-							<img
-								src="https://product.hstatic.net/200000722513/product/ci9f8k75_e9e8bebbbb164f648e7bf94d561919f7_grande.png"
-								alt=""
-								className="w-12 h-12 border-2 rounded-sm"
-							/>
-							<span className="text-xs font-medium">Trắng</span>
-						</button>
-					</div>
 					<div>
+						<h1 className="mt-4 font-semibold">Màu sắc : </h1>
+						<div className="flex gap-4 mt-4">
+							{productDetail?.variant.map((item, index) => (
+								<Tooltip content={item.color} radius="none" size="lg" key={index}>
+									<Button
+										size="sm"
+										color={activeIndex === index ? 'primary' : 'default'}
+										variant="bordered"
+										onClick={() => changeColor(index, item.color)}
+									>
+										{item.color}
+									</Button>
+								</Tooltip>
+							))}
+						</div>
+						<div>
+							<h1 className="mt-4 font-semibold">
+								Số lượng sản phẩm :{' '}
+								{variant !== null
+									? variant.quantity
+									: productDetail.variant[0].quantity}{' '}
+							</h1>
+						</div>
+					</div>
+					<div className="mt-5">
+						{/* {productDetail.quantityImported - productDetail.quantity_sold === 0 ? (
+							<Button
+								color="default"
+								radius="md"
+								className="m98:max-w-[400px] h-12  block w-full text-white font-medium rounded-sm mt-4 max-[998px]:w-full max-[998px]:block"
+							>
+								Hết hàng
+							</Button>
+						) : ( */}
 						<Button
 							color="primary"
 							radius="md"
@@ -120,6 +129,7 @@ export default function PageDetail() {
 						>
 							Mua hàng
 						</Button>
+						{/* // )} */}
 					</div>
 					<div className="mt-4">
 						<h1 className="capitalize text-xl font-semibold">Thông tin chung : </h1>

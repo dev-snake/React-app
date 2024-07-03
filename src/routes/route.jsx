@@ -24,6 +24,7 @@ const AddProduct = lazy(() => import('../admin/ProductManagement/AddProduct/AddP
 const EditProduct = lazy(() => import('../admin/ProductManagement/EditProduct/EditProduct'));
 const ProductList = lazy(() => import('../pages/Home/ProductList/ProductList'));
 const OrderedSuccess = lazy(() => import('../pages/Cart/orders-success/OrderedSuccess'));
+const OrderManagement = lazy(() => import('../admin/OrderManagement/OrderManagement'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'products/:productId/edit',
 				element: <EditProduct />
+			},
+			{
+				path: 'orders',
+				element: <OrderManagement />
 			}
 		]
 	},

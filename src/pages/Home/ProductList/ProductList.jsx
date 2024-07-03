@@ -8,7 +8,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 export default function ProductList() {
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const { categoryId } = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const [products, setProducts] = useState([]);
 	useEffect(() => {
 		if (!isLoading && data.length > 0) {
