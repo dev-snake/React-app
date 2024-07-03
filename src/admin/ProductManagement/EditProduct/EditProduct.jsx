@@ -110,6 +110,9 @@ export default function EditProduct() {
 							placeholder="Danh mục sản phẩm"
 							isRequired
 							variant="bordered"
+							onChange={(e) =>
+								setProductEdit({ ...productEdit, categoryId: e.target.value })
+							}
 						>
 							{categoriesList.map((category, index) => (
 								<SelectItem key={category.categoryId}>{category.name}</SelectItem>

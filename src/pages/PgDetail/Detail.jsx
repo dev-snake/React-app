@@ -114,7 +114,8 @@ export default function PageDetail() {
 						</div>
 					</div>
 					<div className="mt-5">
-						{/* {productDetail.quantityImported - productDetail.quantity_sold === 0 ? (
+						{console.log(variant)}
+						{variant?.quantity - variant?.quantity_sold === 0 ? (
 							<Button
 								color="default"
 								radius="md"
@@ -122,20 +123,22 @@ export default function PageDetail() {
 							>
 								Hết hàng
 							</Button>
-						) : ( */}
-						<Button
-							color="primary"
-							radius="md"
-							className="m98:max-w-[400px] h-12  block w-full text-white font-medium rounded-sm mt-4 max-[998px]:w-full max-[998px]:block"
-							onClick={() => {
-								const code =
-									variant !== null ? variant.code : productDetail.variant[0].code;
-								handleAddToCart(productDetail._id, code);
-							}}
-						>
-							Mua hàng
-						</Button>
-						{/* // )} */}
+						) : (
+							<Button
+								color="primary"
+								radius="md"
+								className="m98:max-w-[400px] h-12  block w-full text-white font-medium rounded-sm mt-4 max-[998px]:w-full max-[998px]:block"
+								onClick={() => {
+									const code =
+										variant !== null
+											? variant.code
+											: productDetail.variant[0].code;
+									handleAddToCart(productDetail._id, code);
+								}}
+							>
+								Mua hàng
+							</Button>
+						)}
 					</div>
 					<div className="mt-4">
 						<h1 className="capitalize text-xl font-semibold">Thông tin chung : </h1>

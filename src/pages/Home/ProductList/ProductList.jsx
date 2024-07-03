@@ -80,6 +80,7 @@ export default function ProductList() {
 								<Image
 									src={product.image}
 									alt="ảnh lỗi"
+									radius="sm"
 									className="h-[250px] mx-auto hover:scale-90 transition-all bg-transparent block text-center"
 									loading="lazy"
 								/>

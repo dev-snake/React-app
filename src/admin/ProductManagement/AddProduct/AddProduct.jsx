@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function AddProduct() {
 	const [variant, setVariant] = useState([
-		{ code: '', color: '', quantity: 0, price: 0, image: '' }
+		{ code: '', color: '', quantity: 0, price: 0, image: '', quantity_sold: 0 }
 	]);
 	const [state, setState] = useState({
 		name: '',

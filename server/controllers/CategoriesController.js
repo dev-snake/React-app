@@ -10,8 +10,8 @@ class CategoriesController {
 	}
 	async create(req, res) {
 		const newCategory = {
-			name: 'Tai nghe',
-			categoryId: 3
+			name: 'Dây cáp',
+			categoryId: 5
 		};
 		try {
 			const category = await categoryModel.create(newCategory);
