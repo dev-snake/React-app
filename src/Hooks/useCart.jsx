@@ -13,42 +13,42 @@ const useCart = () => {
 		if (existProduct) {
 			const findColor = existProduct.color.find((item) => item.code === code);
 			if (findColor) {
-				if (findColor.quantityCart >= findColor.quantity) {
+				if (findColor.quantityBuyed >= findColor.quantity) {
 					toast.warning('Sản phẩm đã hết !', { duration: 1000 });
 					return;
 				}
-				findColor.quantityCart += 1;
+				findColor.quantityBuyed += 1;
 				toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
 				setCartItems([...cartItems]);
 			} else {
 				toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
-				existProduct.color.push({ ...color, quantityCart: 1 });
+				existProduct.color.push({ ...color, quantityBuyed: 1 });
 				setCartItems([...cartItems]);
 			}
 		} else {
 			toast.success('Thêm sản phẩm vào giỏ hàng thành công', { duration: 1000 });
-			cartItems.push({ ...product, color: [{ ...color, quantityCart: 1 }] });
+			cartItems.push({ ...product, color: [{ ...color, quantityBuyed: 1 }] });
 			setCartItems([...cartItems]);
 		}
 	};
 	const increaseQuantity = (productId, codeColor) => {
 		const product = cartItems.find((item) => item._id === productId);
 		const color = product.color.find((item) => item.code === codeColor);
-		if (color.quantityCart >= color.quantity) {
+		if (color.quantityBuyed >= color.quantity) {
 			toast.warning('Sản phẩm đã hết !', { duration: 1000 });
 			return;
 		}
-		color.quantityCart += 1;
+		color.quantityBuyed += 1;
 		setCartItems([...cartItems]);
 	};
 	const decreaseQuantity = (productId, colorCode) => {
 		const product = cartItems.find((item) => item._id === productId);
 		const color = product.color.find((item) => item.code === colorCode);
-		if (color.quantityCart === 1) {
-			removeItem(productId, colorCode);
+		if (color.quantityBuyed === 1) {
+			toast.warning('Số lượng sản phẩm phải lớn hơn 0', { duration: 1000 });
 			return;
 		}
-		color.quantityCart -= 1;
+		color.quantityBuyed -= 1;
 		setCartItems([...cartItems]);
 	};
 	const removeItem = (productId, colorCode) => {
@@ -64,7 +64,7 @@ const useCart = () => {
 	const getTotalPrice = () => {
 		const total = cartItems.reduce((acc, item) => {
 			const totalItem = item.color.reduce((acc, color) => {
-				return acc + color.price * color.quantityCart;
+				return acc + color.price * color.quantityBuyed;
 			}, 0);
 			return acc + totalItem;
 		}, 0);

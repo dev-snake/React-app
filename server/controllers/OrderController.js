@@ -1,6 +1,14 @@
 const orderModel = require('../models/OrderModel');
 class OrderController {
-	index(req, res) {}
+	async index(req, res) {
+		try {
+			const orders = await orderModel.find({});
+			return res.status(200).json(orders);
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json(error);
+		}
+	}
 	async create(req, res) {
 		try {
 			const user = req.user;

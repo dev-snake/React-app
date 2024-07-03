@@ -142,9 +142,15 @@ export default function ProductManagement() {
 									: 'Dây cáp'}
 							</TableCell>
 							<TableCell>
-								{item.variant.reduce((acc, item) => acc + item.quantity, 0) > 0
-									? 'Còn hàng'
-									: 'Hết hàng'}
+								{item.variant.reduce((acc, item) => acc + item.quantity, 0) > 0 ? (
+									<Chip color="success" variant="flat">
+										Còn hàng
+									</Chip>
+								) : (
+									<Chip color="danger" variant="flat">
+										Hết hàng
+									</Chip>
+								)}
 							</TableCell>
 							<TableCell>
 								<div className="relative flex items-center gap-2">

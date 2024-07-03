@@ -37,14 +37,16 @@ export default function Login() {
 					<h2 className="capitalize font-semibold text-xl">Login</h2>
 					<form action="" className="mt-4 flex flex-col gap-4" onSubmit={handleSubmit}>
 						<Input
+							variant="underlined"
 							label="Username"
 							onChange={(e) => setUser({ ...user, username: e.target.value })}
 						></Input>
 						<Input
+							variant="underlined"
 							label="Password"
 							onChange={(e) => setUser({ ...user, password: e.target.value })}
 						></Input>
-						<div className="flex justify-between">
+						<div className="flex justify-between mt-4">
 							<Checkbox> Remember me</Checkbox>
 							<Link> Forgot password?</Link>
 						</div>

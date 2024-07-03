@@ -67,7 +67,7 @@ export default function CartItem() {
 												type="text"
 												className="max-w-[50px] outline-none border-[1px] text-center h-full"
 												readOnly
-												value={item.quantityCart}
+												value={item.quantityBuyed}
 											/>
 											<Button
 												className="w-8 font-medium h-full"

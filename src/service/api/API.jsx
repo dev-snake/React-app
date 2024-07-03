@@ -7,6 +7,7 @@ const API = {
 	},
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,
+	ORDERS: `${BASE_URL}/orders`,
 	CATEGORIES: `${BASE_URL}/categories`,
 	VOUCHERS: `${BASE_URL}/vouchers`,
 	CREATE_ORDER: `${BASE_URL}/orders/create-order`
