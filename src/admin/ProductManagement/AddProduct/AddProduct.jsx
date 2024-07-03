@@ -52,6 +52,7 @@ export default function AddProduct() {
 		setVariant(newVariant);
 	};
 	const handleSubmit = async () => {
+		console.log(state);
 		// if (state.name === '' || state.price === 0 || state.categoryId === 0) {
 		// 	toast.error('Vui lòng điền đầy đủ thông tin');
 		// 	return;
@@ -151,7 +152,7 @@ export default function AddProduct() {
 						variant="bordered"
 					>
 						{categories.map((category, index) => (
-							<SelectItem key={index}>{category.name}</SelectItem>
+							<SelectItem key={category.categoryId}>{category.name}</SelectItem>
 						))}
 					</Select>
 				</div>

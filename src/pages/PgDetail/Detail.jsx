@@ -86,7 +86,13 @@ export default function PageDetail() {
 						<h1 className="mt-4 font-semibold">Màu sắc : </h1>
 						<div className="flex gap-4 mt-4">
 							{productDetail?.variant.map((item, index) => (
-								<Tooltip content={item.color} radius="none" size="lg" key={index}>
+								<Tooltip
+									content={item.color}
+									radius="sm"
+									color="primary"
+									size="lg"
+									key={index}
+								>
 									<Button
 										size="sm"
 										color={activeIndex === index ? 'primary' : 'default'}
