@@ -37,8 +37,8 @@ function OrderHistory() {
 			try {
 				await axios.put(`${API.CANCEL_ORDER}/${state.currentId}`, {}, config);
 				toast.success('Hủy đơn hàng thành công !');
-				// const res = await axios.get(API.PROFILE, config);
-				// setOrders(res.data.orders);
+				const res = await axios.get(API.PROFILE, config);
+				setOrders(res.data.orders);
 			} catch (error) {
 				console.log(error);
 				toast.error('Đã xảy ra lỗi !');
