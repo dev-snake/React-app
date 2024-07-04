@@ -9,10 +9,11 @@ const order = new Schema(
 		status: { type: Number, default: 0 },
 		total: { type: Number },
 		date: { type: String, default: new Date() },
-		paymentMethod: { type: String },
+		methodPayment: { type: String },
 		address: { type: String },
 		phone: { type: String },
-		email: { type: String }
+		email: { type: String },
+		voucher: { type: Number, default: 0 }
 	},
 	{
 		timestamps: true

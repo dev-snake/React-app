@@ -37,9 +37,11 @@ export default function CartItem() {
 											</Button>
 										</Tooltip>
 									</div>
-									<p className="flex-grow text-[16px] font-semibold">
-										{`${cart.name} - ${item.color}`}
-									</p>
+									<div className="flex-grow text-[16px] ">
+										<p className="font-semibold">{cart.name}</p>
+										<p className="text-slate-400 mt-2">{item.color}</p>
+										<span></span>
+									</div>
 									<div className="flex flex-col items-end">
 										<p className="text-[18px] font-semibold ">
 											{formatMoney(item.price)} ₫

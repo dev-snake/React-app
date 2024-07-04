@@ -89,20 +89,14 @@ export default function Navigation() {
 					startContent={<SearchIcon size={18} />}
 					type="search"
 				/>
-				<Button isIconOnly color="danger" size="sm" variant="shadow">
+				<Button isIconOnly color="primary" size="sm" variant="flat">
 					<Link to={'cart/cart-item'}>
 						<i className="fa-solid fa-cart-shopping"></i>
 					</Link>
 				</Button>
 				<Dropdown placement="bottom-end" className="mt-10">
 					<DropdownTrigger>
-						<Avatar
-							as="button"
-							className="transition-transform"
-							color="secondary"
-							name="Jason Hughes"
-							size="sm"
-						/>
+						<Avatar size="sm" showFallback src="https://images.unsplash.com/broken" />
 					</DropdownTrigger>
 					<DropdownMenu variant="flat">
 						{isLoggedIn()
