@@ -37,17 +37,16 @@ class OrderController {
 		try {
 			const user = req.user;
 			const { orderId } = req.params;
-			const order = await orderModel.findById(orderId);
+			const order = await orderModel.findOne({ orderId: orderId });
 			const findUser = await userModel.findById(user._id);
 			const findOrderOfUser = findUser.orders.find((item) => item.orderId === orderId);
 			if (!order) {
 				return res.status(404).json({ message: 'Order not found' });
 			}
-			order.status = 4;
 			findOrderOfUser.status = 4;
+			order.status = 4;
 			await order.save();
-			await findUser.save();
-
+			await userModel.findByIdAndUpdate(user._id, findUser, { new: true });
 			if (order.userId.toString() !== user._id.toString()) {
 				return res
 					.status(403)

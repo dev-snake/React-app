@@ -40,6 +40,7 @@ function OrderHistory() {
 				// const res = await axios.get(API.PROFILE, config);
 				// setOrders(res.data.orders);
 			} catch (error) {
+				console.log(error);
 				toast.error('Đã xảy ra lỗi !');
 			}
 		};
@@ -88,11 +89,11 @@ function OrderHistory() {
 										Đã xác nhận
 									</Chip>
 								) : order.status === 2 ? (
-									<Chip color="danger" variant="flat">
+									<Chip color="primary" variant="flat">
 										Đang Vận chuyển
 									</Chip>
 								) : (
-									<Chip color="primary" variant="flat">
+									<Chip color="danger" variant="flat">
 										Đã hủy
 									</Chip>
 								)}

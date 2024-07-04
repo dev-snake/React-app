@@ -78,12 +78,12 @@ export default function OrderManagement() {
 									Đã xác nhận
 								</Chip>
 							) : order.status === 2 ? (
-								<Chip color="danger" variant="flat">
-									Đã hủy
-								</Chip>
-							) : (
 								<Chip color="primary" variant="flat">
 									Đang Vận chuyển
+								</Chip>
+							) : (
+								<Chip color="danger" variant="flat">
+									Đã hủy
 								</Chip>
 							)}
 						</TableCell>
