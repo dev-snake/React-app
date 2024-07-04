@@ -33,6 +33,32 @@ class OrderController {
 			return res.status(500).json(error);
 		}
 	}
+	async cancelOrder(req, res) {
+		try {
+			const user = req.user;
+			const { orderId } = req.params;
+			const order = await orderModel.findById(orderId);
+			const findUser = await userModel.findById(user._id);
+			const findOrderOfUser = findUser.orders.find((item) => item.orderId === orderId);
+			if (!order) {
+				return res.status(404).json({ message: 'Order not found' });
+			}
+			order.status = 4;
+			findOrderOfUser.status = 4;
+			await order.save();
+			await findUser.save();
+
+			if (order.userId.toString() !== user._id.toString()) {
+				return res
+					.status(403)
+					.json({ message: 'You are not allowed to cancel this order' });
+			}
+			return res.status(200).json({ message: 'Order has been canceled' });
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json(error);
+		}
+	}
 	update(req, res) {}
 }
 module.exports = new OrderController();

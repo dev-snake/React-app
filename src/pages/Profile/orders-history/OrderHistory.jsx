@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import formatDate from '../../../utils/formatDate';
 import axios from 'axios';
 import Confirm from '../../../admin/ProductManagement/Confirm/Confirm';
+import { config } from '../../../config/config';
 function OrderHistory() {
 	const { data, isLoading } = useFetch(API.PROFILE);
 	const [orders, setOrders] = useState([]);
@@ -33,7 +34,14 @@ function OrderHistory() {
 	}, [isLoading]);
 	useEffect(() => {
 		const cancelOrder = async () => {
-			console.log(state.currentId);
+			try {
+				await axios.put(`${API.CANCEL_ORDER}/${state.currentId}`, {}, config);
+				toast.success('Hủy đơn hàng thành công !');
+				// const res = await axios.get(API.PROFILE, config);
+				// setOrders(res.data.orders);
+			} catch (error) {
+				toast.error('Đã xảy ra lỗi !');
+			}
 		};
 		if (state.isConfirm) {
 			cancelOrder();

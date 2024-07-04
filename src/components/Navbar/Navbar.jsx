@@ -96,7 +96,7 @@ export default function Navigation() {
 				</Button>
 				<Dropdown placement="bottom-end" className="mt-10">
 					<DropdownTrigger>
-						<Avatar size="sm" showFallback src="https://images.unsplash.com/broken" />
+						<Avatar size="sm" />
 					</DropdownTrigger>
 					<DropdownMenu variant="flat">
 						{isLoggedIn()
