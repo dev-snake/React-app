@@ -49,7 +49,11 @@ class UserController {
 	}
 	async profile(req, res) {
 		try {
-			return res.status(200).json(req.user);
+			const user = req.user;
+			const userInfor = await userModel.findById(user._id);
+			const { password, ...infoUser } = userInfor._doc;
+			if (!userInfor) return res.status(400).json('User không tồn tại !');
+			return res.status(200).json(infoUser);
 		} catch (error) {
 			return res.status(500).json('ERROR SERVER !!');
 		}

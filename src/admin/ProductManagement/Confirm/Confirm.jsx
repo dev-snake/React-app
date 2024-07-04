@@ -2,13 +2,12 @@ import {
 	Modal,
 	ModalContent,
 	ModalBody,
-	useDisclosure,
 	ModalHeader,
 	ModalFooter,
 	Button
 } from '@nextui-org/react';
 import { useState } from 'react';
-export default function Confirm({ isOpen, onOpenChange, setState }) {
+export default function Confirm({ isOpen, onOpenChange, setState, message, btnMessage }) {
 	const [scrollBehavior, setScrollBehavior] = useState('inside');
 	return (
 		<Modal
@@ -20,12 +19,8 @@ export default function Confirm({ isOpen, onOpenChange, setState }) {
 			<ModalContent>
 				{(onClose) => (
 					<>
-						<ModalHeader className="flex flex-col gap-1">
-							Bạn có muốn xóa sản phẩm này không ?
-						</ModalHeader>
-						<ModalBody>
-							<p> Bạn có chắc chắn muốn xóa sản phẩm này không</p>
-						</ModalBody>
+						<ModalHeader className="flex flex-col gap-1">{message}</ModalHeader>
+						<ModalBody>{/* <p>{message}</p> */}</ModalBody>
 						<ModalFooter>
 							<Button
 								color="danger"
@@ -45,7 +40,7 @@ export default function Confirm({ isOpen, onOpenChange, setState }) {
 									onClose();
 								}}
 							>
-								Delete
+								{btnMessage}
 							</Button>
 						</ModalFooter>
 					</>

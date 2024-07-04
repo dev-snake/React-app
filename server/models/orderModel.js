@@ -13,7 +13,8 @@ const order = new Schema(
 		address: { type: String },
 		phone: { type: String },
 		email: { type: String },
-		voucher: { type: Number, default: 0 }
+		voucher: { type: Number, default: 0 },
+		orderId: { type: String, unique: true }
 	},
 	{
 		timestamps: true

@@ -18,7 +18,10 @@ class OrderController {
 				...req.body,
 				address: `${ward}, ${district}, ${province}`,
 				userId: user._id,
-				email: user.email
+				email: user.email,
+				date: new Date(),
+				status: 0,
+				orderId: Math.random().toString(36).substring(2, 15)
 			};
 			const createOrder = await orderModel.create(newOrder);
 			const findUser = await userModel.findById(user._id);

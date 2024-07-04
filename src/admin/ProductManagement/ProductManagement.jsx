@@ -65,6 +65,8 @@ export default function ProductManagement() {
 				isOpen={isConfirmOpen}
 				onOpenChange={onConfirmOpenChange}
 				setState={setState}
+				message="Bạn có muốn chắc chắn muốn xóa sản phẩm này không ?"
+				btnMessage="Delete"
 			/>
 			<Table
 				className="mt-4"

@@ -60,12 +60,12 @@ export default function OrderManagement() {
 				<TableColumn>NGÀY ĐẶT HÀNG </TableColumn>
 				<TableColumn>TRẠNG THÁI</TableColumn>
 				<TableColumn>XÁC NHẬN</TableColumn>
-				<TableColumn>ACTION</TableColumn>
+				<TableColumn>XEM ĐƠN HÀNG</TableColumn>
 			</TableHeader>
 			<TableBody>
 				{items.map((order, index) => (
 					<TableRow key={index}>
-						<TableCell>{order._id}</TableCell>
+						<TableCell>{order.orderId}</TableCell>
 						<TableCell>{order.fullname}</TableCell>
 						<TableCell>{formatDate(order.date)}</TableCell>
 						<TableCell>
