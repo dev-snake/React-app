@@ -56,6 +56,9 @@ const useCart = () => {
 		setCartItems((prev) => {
 			const product = prev.find((p) => p._id === productId);
 			const newColor = product.color.filter((c) => c.code !== colorCode);
+			if (newColor.length === 0) {
+				return prev.filter((product) => product._id !== productId);
+			}
 			return prev.map((product) =>
 				product._id === productId ? { ...product, color: newColor } : product
 			);
