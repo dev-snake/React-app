@@ -7,7 +7,6 @@ import SpinnerUi from '../../../components/common/Spinner';
 import formatDate from '../../../utils/formatDate';
 import { formatMoney } from '../../../utils/formatNumber';
 import { Link } from 'react-router-dom';
-import useCart from '../../../Hooks/useCart';
 import { toast } from 'sonner';
 export default function ApplyVoucher({ totalPrice, cartItems }) {
 	const { data, isLoading } = useFetch(`${API.VOUCHERS}`);
@@ -24,6 +23,12 @@ export default function ApplyVoucher({ totalPrice, cartItems }) {
 		const setVoucher = data.find((voucher) => voucher._id === voucherId);
 		const CURRENT_DATE = new Date().toISOString();
 		const EXPIRY_DATE = setVoucher.expiry_date;
+		const APPLICABLE_AMOUNT = setVoucher.applicable_amount;
+		const TOTAL_PRICE = +totalPrice.split('.').join('');
+		if (TOTAL_PRICE < APPLICABLE_AMOUNT) {
+			toast.error('Đơn hàng không đủ điều kiện sử dụng Voucher');
+			return;
+		}
 		if (CURRENT_DATE > EXPIRY_DATE) {
 			toast.error('Mã giảm giá đã hết hạn');
 			return;
