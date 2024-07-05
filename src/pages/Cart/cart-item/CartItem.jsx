@@ -92,7 +92,7 @@ export default function CartItem() {
 				})}
 			</div>
 			<div className="p-3">
-				<ApplyVoucher totalPrice={formatMoney(getTotalPrice())} />
+				<ApplyVoucher totalPrice={formatMoney(getTotalPrice())} cartItems={cartItems} />
 			</div>
 		</>
 	);

@@ -9,9 +9,8 @@ import { formatMoney } from '../../../utils/formatNumber';
 import { Link } from 'react-router-dom';
 import useCart from '../../../Hooks/useCart';
 import { toast } from 'sonner';
-export default function ApplyVoucher({ totalPrice }) {
+export default function ApplyVoucher({ totalPrice, cartItems }) {
 	const { data, isLoading } = useFetch(`${API.VOUCHERS}`);
-	const { cartItems } = useCart();
 	const [isShow, setIsShow] = useState(false);
 	const [voucherApplied, setVoucherApplied] = useState([]);
 	const voucher = JSON.parse(localStorage.getItem('voucher') || '[]');
@@ -33,9 +32,9 @@ export default function ApplyVoucher({ totalPrice }) {
 		localStorage.removeItem('voucher');
 		setVoucherApplied([]);
 	};
-	if (isLoading) {
-		return <SpinnerUi />;
-	}
+	console.log('voucher : ', voucher);
+	console.log('cartItem : ', cartItems);
+	isLoading && <SpinnerUi />;
 	return (
 		<>
 			<div>

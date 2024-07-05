@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import useCart from '../../Hooks/useCart';
 import { toast } from 'sonner';
 import { accessToken } from '../../utils/saveStatus';
-import { color } from 'framer-motion';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const [activeIndex, setActiveIndex] = useState(null);
@@ -114,7 +113,6 @@ export default function PageDetail() {
 						</div>
 					</div>
 					<div className="mt-5">
-						{console.log(variant)}
 						{variant?.quantity - variant?.quantity_sold === 0 ? (
 							<Button
 								color="default"
