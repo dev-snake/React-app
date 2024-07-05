@@ -129,6 +129,19 @@ export default function ApplyVoucher({ totalPrice, cartItems }) {
 	);
 }
 function FormVoucher({ data, applyVoucher }) {
+	const [voucherInput, setVoucherInput] = useState('');
+	const handleVoucherInput = () => {
+		if (voucherInput === '') {
+			toast.error('Vui lòng nhập mã giảm giá');
+			return;
+		}
+		const voucher = data.find((voucher) => voucher.voucher_code === voucherInput);
+		if (!voucher) {
+			toast.error('Mã giảm giá không tồn tại');
+			return;
+		}
+		applyVoucher(voucher._id);
+	};
 	return (
 		<Fragment>
 			<div className="bg-slate-50 p-2 flex gap-2 rounded-md items-center">
@@ -136,8 +149,11 @@ function FormVoucher({ data, applyVoucher }) {
 					type="text"
 					className="grow-[2] outline-none p-2"
 					placeholder="Nhập mã giảm giá/Phiếu mua hàng"
+					onChange={(e) => setVoucherInput(e.target.value)}
 				/>
-				<Button color="primary">Áp dụng</Button>
+				<Button color="primary" onClick={handleVoucherInput}>
+					Áp dụng
+				</Button>
 			</div>
 			<div className="mt-2 grid gap-2">
 				{data?.map((voucher, index) => (
