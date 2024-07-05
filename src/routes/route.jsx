@@ -26,6 +26,7 @@ const ProductList = lazy(() => import('../pages/Home/ProductList/ProductList'));
 const OrderedSuccess = lazy(() => import('../pages/Cart/orders-success/OrderedSuccess'));
 const OrderManagement = lazy(() => import('../admin/OrderManagement/OrderManagement'));
 const OrderDetail = lazy(() => import('../admin/OrderManagement/OrderDetail/OrderDetail'));
+const ViewDetail = lazy(() => import('../pages/Profile/orders-history/view-detail/ViewDetail'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -131,6 +132,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'lookup-order',
 				element: <LookupOrder />
+			},
+			{
+				path: 'order-history/:orderId/view-detail',
+				element: <ViewDetail />
 			}
 		]
 	},

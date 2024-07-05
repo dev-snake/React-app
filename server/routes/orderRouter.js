@@ -5,6 +5,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 // router.put('/update-order/:id', orderController.updateOrder);
 // router.patch('/:id/updateStatus', orderController.updateStatus);
 // router.get('/:id/order-details', orderController.getOrderDetails);
+router.put('/confirm-order/:orderId', authenticateToken, orderController.confirmOrder);
 router.put('/cancel-order/:orderId', authenticateToken, orderController.cancelOrder);
 router.post('/create-order', authenticateToken, orderController.create);
 router.put('/:id', orderController.update);

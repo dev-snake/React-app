@@ -5,13 +5,18 @@ const API = {
 		DISTRICTS: 'https://vapi.vnappmob.com/api/province/district',
 		WARDS: 'https://vapi.vnappmob.com/api/province/ward'
 	},
+	// API PRODUCTS :
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,
 	PROFILE: `${BASE_URL}/users/profile`,
+	// API ORDERS :
 	ORDERS: `${BASE_URL}/orders`,
+	CREATE_ORDER: `${BASE_URL}/orders/create-order`,
 	CANCEL_ORDER: `${BASE_URL}/orders/cancel-order`,
+	CONFIRM_ORDER: `${BASE_URL}/orders/confirm-order`,
+	// API CATEGORIES :
 	CATEGORIES: `${BASE_URL}/categories`,
-	VOUCHERS: `${BASE_URL}/vouchers`,
-	CREATE_ORDER: `${BASE_URL}/orders/create-order`
+	// API VOUCHERS :
+	VOUCHERS: `${BASE_URL}/vouchers`
 };
 export { API };

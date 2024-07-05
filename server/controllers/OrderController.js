@@ -1,5 +1,6 @@
 const orderModel = require('../models/OrderModel');
 const userModel = require('../models/userModel');
+const productModel = require('../models/productModel');
 class OrderController {
 	async index(req, res) {
 		try {
@@ -53,6 +54,49 @@ class OrderController {
 					.json({ message: 'You are not allowed to cancel this order' });
 			}
 			return res.status(200).json({ message: 'Order has been canceled' });
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json(error);
+		}
+	}
+	async confirmOrder(req, res) {
+		try {
+			const { orderId } = req.params;
+			const order = await orderModel.findOne({ orderId: orderId });
+			const userId = order.userId;
+			const user = await userModel.findById(userId);
+			if (!user) {
+				return res.status(404).json({ message: 'User not found' });
+			}
+			if (!order) {
+				return res.status(404).json({ message: 'Order not found' });
+			}
+			const findOrderOfUser = user.orders.find((item) => item.orderId === orderId);
+			findOrderOfUser.status = 1;
+			await userModel.findByIdAndUpdate(userId, user, { new: true });
+			order.status = 1;
+			await order.save();
+			const updatePromises = order.products.map(async (item) => {
+				const productId = item._id;
+				const updateProductCodes = item.color.map(async (productCode) => {
+					const code = productCode.code;
+					const quantityBuyed = productCode.quantityBuyed;
+					const productToUpdate = await productModel.findById(productId);
+					productToUpdate.variant.forEach((productVariant) => {
+						if (productVariant.code === code) {
+							productVariant.quantity_sold += quantityBuyed;
+						}
+					});
+					await productModel.findByIdAndUpdate(productId, productToUpdate, { new: true });
+					// console.log(productToUpdate);
+				});
+				return Promise.all(updateProductCodes);
+			});
+
+			await Promise.all(updatePromises);
+
+			console.log(order);
+			return res.status(200).json({ message: 'Order has been confirmed' });
 		} catch (error) {
 			console.log(error);
 			return res.status(500).json(error);

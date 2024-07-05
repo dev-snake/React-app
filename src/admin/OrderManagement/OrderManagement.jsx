@@ -17,9 +17,12 @@ import { Link } from 'react-router-dom';
 import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
 import formatDate from '../../utils/formatDate';
+import axios from 'axios';
+import { config } from '../../config/config';
 export default function OrderManagement() {
 	const { data, isLoading, mutate } = useFetch(`${API.ORDERS}`);
 	const [page, setPage] = useState(1);
+	const [isSelected, setIsSelected] = useState(false);
 	const rowsPerPage = 4;
 	const pages = Math.ceil(data.length / rowsPerPage);
 	const items = useMemo(() => {
@@ -32,9 +35,19 @@ export default function OrderManagement() {
 			toast.loading('Đang tải dữ liệu');
 		} else {
 			toast.dismiss();
-			console.log(data);
 		}
 	}, [isLoading]);
+	const handleToogle = async (orderId) => {
+		try {
+			const response = await axios.put(`${API.CONFIRM_ORDER}/${orderId}`, {}, config);
+			toast.success('Xác nhận đơn hàng thành công');
+			mutate();
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+			toast.error(error);
+		}
+	};
 	return (
 		<Table
 			className="mt-4 p-3"
@@ -88,7 +101,22 @@ export default function OrderManagement() {
 							)}
 						</TableCell>
 						<TableCell>
-							<Switch aria-label="Xác nhận" color="primary" />
+							{order.status === 4 ? (
+								<Switch aria-label="Xác nhận" color="primary" isDisabled />
+							) : order.status === 1 ? (
+								<Switch
+									aria-label="Xác nhận"
+									color="primary"
+									isSelected
+									isDisabled
+								/>
+							) : (
+								<Switch
+									aria-label="Xác nhận"
+									color="primary"
+									onChange={() => handleToogle(order.orderId)}
+								/>
+							)}
 						</TableCell>
 
 						<TableCell>

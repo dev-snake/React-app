@@ -19,6 +19,7 @@ import formatDate from '../../../utils/formatDate';
 import axios from 'axios';
 import Confirm from '../../../admin/ProductManagement/Confirm/Confirm';
 import { config } from '../../../config/config';
+import { formatMoney } from '../../../utils/formatNumber';
 function OrderHistory() {
 	const { data, isLoading } = useFetch(API.PROFILE);
 	const [orders, setOrders] = useState([]);
@@ -78,7 +79,7 @@ function OrderHistory() {
 							<TableCell>{order.orderId}</TableCell>
 							<TableCell>{order.fullname}</TableCell>
 							<TableCell>{formatDate(order.date)}</TableCell>
-							<TableCell>{order.voucher}</TableCell>
+							<TableCell>{formatMoney(order.voucher)}đ</TableCell>
 							<TableCell>
 								{order.status === 0 ? (
 									<Chip color="secondary" variant="flat">
@@ -109,30 +110,49 @@ function OrderHistory() {
 										size="sm"
 										className="bg-blue-400"
 									>
-										<Link>
+										<Link to={`${order.orderId}/view-detail`}>
 											<i className="fa-solid fa-eye   text-white"></i>
 										</Link>
 									</Button>
 								</Tooltip>
 							</TableCell>
 							<TableCell>
-								<Tooltip content="Hủy đơn hàng" className="bg-red-400 text-white">
-									<Button
-										isIconOnly
-										className="bg-red-400"
-										radius="lg"
-										size="sm"
-										onClick={() => {
-											onOpen();
-											setState((prev) => ({
-												...prev,
-												currentId: order.orderId
-											}));
-										}}
+								{order.status === 4 ? (
+									<Tooltip
+										content="Đơn hàng đã bị hủy"
+										className="bg-red-400 text-white"
 									>
-										<i className="fa-solid fa-trash  cursor-pointer text-white"></i>
-									</Button>
-								</Tooltip>
+										<Button
+											isIconOnly
+											className="bg-red-400"
+											radius="lg"
+											size="sm"
+										>
+											<i className="fa-solid fa-trash  cursor-pointer text-white"></i>
+										</Button>
+									</Tooltip>
+								) : (
+									<Tooltip
+										content="Hủy đơn hàng"
+										className="bg-red-400 text-white"
+									>
+										<Button
+											isIconOnly
+											className="bg-red-400"
+											radius="lg"
+											size="sm"
+											onClick={() => {
+												onOpen();
+												setState((prev) => ({
+													...prev,
+													currentId: order.orderId
+												}));
+											}}
+										>
+											<i className="fa-solid fa-trash  cursor-pointer text-white"></i>
+										</Button>
+									</Tooltip>
+								)}
 							</TableCell>
 						</TableRow>
 					))}

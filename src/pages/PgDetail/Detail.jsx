@@ -108,8 +108,8 @@ export default function PageDetail() {
 							<h1 className="mt-4 font-semibold">
 								Số lượng sản phẩm :
 								{variant !== null
-									? variant.quantity
-									: productDetail.variant[0].quantity}{' '}
+									? variant.quantity - variant.quantity_sold
+									: productDetail.variant[0].quantity}
 							</h1>
 						</div>
 					</div>

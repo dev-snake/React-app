@@ -8,24 +8,25 @@ import {
 	Chip
 } from '@nextui-org/react';
 import { useParams } from 'react-router-dom';
-import { useFetch } from '../../../Hooks/useFetch';
-import { API } from '../../../service/api/API';
 import { useEffect, useState } from 'react';
+import { useFetch } from '../../../../Hooks/useFetch';
+import { API } from '../../../../service/api/API';
+import formatDate from '../../../../utils/formatDate';
+import { formatMoney } from '../../../../utils/formatNumber';
 import { toast } from 'sonner';
-import formatDate from '../../../utils/formatDate';
-import { formatMoney } from '../../../utils/formatNumber';
-export default function OrderDetail() {
+export default function ViewDetail() {
 	const { data, isLoading } = useFetch(`${API.ORDERS}`);
 	const [order, setOrder] = useState(null);
 	const { orderId } = useParams();
 	useEffect(() => {
-		if (!isLoading) {
-			const order = data.find((order) => order._id == orderId);
+		if (isLoading) {
+			toast.loading('Đang tải dữ liệu');
+		} else {
+			toast.dismiss();
+			const order = data.find((order) => order.orderId === orderId);
 			setOrder(order);
 		}
 	}, [isLoading, data, orderId]);
-	// console.log(JSON.stringify(order?.products));
-	console.log(order);
 	return (
 		<div className="p-3">
 			<div>
@@ -33,7 +34,7 @@ export default function OrderDetail() {
 				<div>
 					<div className="flex justify-between mt-4">
 						<span className="font-semibold">Mã đơn hàng : </span>
-						<span> {order?._id}</span>
+						<span> {order?.orderId}</span>
 					</div>
 					<div className="flex justify-between mt-4">
 						<span className="font-semibold">Người đặt hàng : </span>

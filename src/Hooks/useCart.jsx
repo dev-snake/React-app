@@ -13,7 +13,8 @@ const useCart = () => {
 		if (existProduct) {
 			const findColor = existProduct.color.find((item) => item.code === code);
 			if (findColor) {
-				if (findColor.quantityBuyed >= findColor.quantity) {
+				const total = findColor.quantityBuyed + findColor.quantity_sold;
+				if (total >= findColor.quantity) {
 					toast.warning('Sản phẩm đã hết !', { duration: 1000 });
 					return;
 				}
