@@ -5,8 +5,10 @@ import {
 	TableColumn,
 	TableCell,
 	TableRow,
-	Chip
+	Chip,
+	Button
 } from '@nextui-org/react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../../Hooks/useFetch';
 import { API } from '../../../service/api/API';
@@ -19,7 +21,9 @@ export default function OrderDetail() {
 	const [order, setOrder] = useState(null);
 	const { orderId } = useParams();
 	useEffect(() => {
-		if (!isLoading) {
+		if (isLoading) {
+			toast.loading('Đang tải dữ liệu');
+		} else {
 			const order = data.find((order) => order._id == orderId);
 			setOrder(order);
 		}
@@ -29,7 +33,15 @@ export default function OrderDetail() {
 	return (
 		<div className="p-3">
 			<div>
-				<h3 className="text-xl font-semibold">Chi tiết đơn hàng</h3>
+				<div className="flex justify-between items-center mb-8">
+					<h3 className="text-xl font-semibold">Chi tiết đơn hàng</h3>
+					<Button
+						color="secondary"
+						startContent={<i className="fa-solid fa-arrow-left"></i>}
+					>
+						<Link to="/admin/orders">Quay lại</Link>
+					</Button>
+				</div>
 				<div>
 					<div className="flex justify-between mt-4">
 						<span className="font-semibold">Mã đơn hàng : </span>
@@ -50,7 +62,6 @@ export default function OrderDetail() {
 					<div className="flex justify-between mt-4">
 						<span className="font-semibold">Giảm giá voucher : </span>
 						<span className="font-medium text-red-500">
-							{' '}
 							{formatMoney(order?.voucher)} đ
 						</span>
 					</div>

@@ -131,6 +131,20 @@ function OrderHistory() {
 											<i className="fa-solid fa-trash  cursor-pointer text-white"></i>
 										</Button>
 									</Tooltip>
+								) : order.status === 1 ? (
+									<Tooltip
+										content="Đơn hàng không thể  hủy"
+										className="bg-red-400 text-white"
+									>
+										<Button
+											isIconOnly
+											className="bg-red-400"
+											radius="lg"
+											size="sm"
+										>
+											<i className="fa-solid fa-trash  cursor-pointer text-white"></i>
+										</Button>
+									</Tooltip>
 								) : (
 									<Tooltip
 										content="Hủy đơn hàng"

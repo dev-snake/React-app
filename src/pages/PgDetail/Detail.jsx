@@ -55,11 +55,16 @@ export default function PageDetail() {
 								className="w-16 h-16 focus:border-2 border-blue-500 rounded-sm transition-all ease-in-out mr-2"
 								key={index}
 							>
-								<Image
+								<img
 									src={item.image}
 									alt=""
 									radius="none"
-									className="w-full h-full"
+									className={
+										activeIndex === index
+											? 'border-2 border-blue-500'
+											: 'cursor-pointer'
+									}
+									onClick={() => changeColor(index, item.color)}
 								/>
 							</div>
 						))}
