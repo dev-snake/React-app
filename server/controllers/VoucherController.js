@@ -22,5 +22,18 @@ class VoucherController {
 			return res.status(500).json(error.message);
 		}
 	}
+	async update(req, res) {
+		try {
+			const { id } = req.params;
+			const voucher = await voucherModel.findByIdAndUpdate(
+				id,
+				{ usage_count: 0, max_uses: 0 },
+				{ new: true }
+			);
+			return res.status(200).json(voucher);
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
 }
 module.exports = new VoucherController();

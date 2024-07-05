@@ -21,9 +21,15 @@ export default function ApplyVoucher({ totalPrice, cartItems }) {
 			toast.warning('Vui lòng thêm sản phẩm vào giỏ hàng');
 			return;
 		}
-		const voucher = data.find((voucher) => voucher._id === voucherId);
-		localStorage.setItem('voucher', JSON.stringify([voucher]));
-		setVoucherApplied([voucher]);
+		const setVoucher = data.find((voucher) => voucher._id === voucherId);
+		const CURRENT_DATE = new Date().toISOString();
+		const EXPIRY_DATE = setVoucher.expiry_date;
+		if (CURRENT_DATE > EXPIRY_DATE) {
+			toast.error('Mã giảm giá đã hết hạn');
+			return;
+		}
+		localStorage.setItem('voucher', JSON.stringify([setVoucher]));
+		setVoucherApplied([setVoucher]);
 	};
 	const handleClickShow = () => {
 		setIsShow(!isShow);
@@ -32,8 +38,6 @@ export default function ApplyVoucher({ totalPrice, cartItems }) {
 		localStorage.removeItem('voucher');
 		setVoucherApplied([]);
 	};
-	console.log('voucher : ', voucher);
-	console.log('cartItem : ', cartItems);
 	isLoading && <SpinnerUi />;
 	return (
 		<>
