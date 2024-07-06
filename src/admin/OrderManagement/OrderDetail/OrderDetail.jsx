@@ -24,6 +24,7 @@ export default function OrderDetail() {
 		if (isLoading) {
 			toast.loading('Đang tải dữ liệu');
 		} else {
+			toast.dismiss();
 			const order = data.find((order) => order._id == orderId);
 			setOrder(order);
 		}

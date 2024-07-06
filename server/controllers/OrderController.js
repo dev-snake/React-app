@@ -1,6 +1,7 @@
 const orderModel = require('../models/OrderModel');
 const userModel = require('../models/userModel');
 const productModel = require('../models/productModel');
+const voucherModel = require('../models/voucherModel');
 class OrderController {
 	async index(req, res) {
 		try {
@@ -64,6 +65,8 @@ class OrderController {
 			const { orderId } = req.params;
 			const order = await orderModel.findOne({ orderId: orderId });
 			const userId = order.userId;
+			const voucherId = order.voucherId;
+			const voucher = await voucherModel.findById(voucherId);
 			const user = await userModel.findById(userId);
 			if (!user) {
 				return res.status(404).json({ message: 'User not found' });
@@ -71,6 +74,12 @@ class OrderController {
 			if (!order) {
 				return res.status(404).json({ message: 'Order not found' });
 			}
+			if (!voucher) {
+				return res.status(404).json({ message: 'Voucher not found' });
+			}
+			voucher.usage_count += 1;
+			await voucher.save();
+			// await voucherModel.findOneAndUpdate({ voucherId }, voucher, { new: true });
 			const findOrderOfUser = user.orders.find((item) => item.orderId === orderId);
 			findOrderOfUser.status = 1;
 			await userModel.findByIdAndUpdate(userId, user, { new: true });
@@ -88,14 +97,11 @@ class OrderController {
 						}
 					});
 					await productModel.findByIdAndUpdate(productId, productToUpdate, { new: true });
-					// console.log(productToUpdate);
 				});
 				return Promise.all(updateProductCodes);
 			});
-
 			await Promise.all(updatePromises);
-
-			console.log(order);
+			console.log(voucher);
 			return res.status(200).json({ message: 'Order has been confirmed' });
 		} catch (error) {
 			console.log(error);

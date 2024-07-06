@@ -14,6 +14,7 @@ const order = new Schema(
 		phone: { type: String },
 		email: { type: String },
 		voucher: { type: Number, default: 0 },
+		voucherId: { type: String, default: '' },
 		orderId: { type: String, unique: true }
 	},
 	{

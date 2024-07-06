@@ -1,7 +1,7 @@
 import TechInfor from './TechInfor/TechInfor';
 import SimilarProduct from './SimilarProduct/SimilarProduct';
 import Feedback from './Feedback/Feedback';
-import { Image, Chip, Button, Card, Tooltip } from '@nextui-org/react';
+import { Image, Chip, Button, Card, Tooltip, Tabs, Tab } from '@nextui-org/react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
@@ -160,9 +160,23 @@ export default function PageDetail() {
 			{/* Products Information */}
 			<div className="grid  mt-4 gap-4  m98:flex max-[998px]:p-4">
 				<TechInfor />
-				<SimilarProduct />
+				<SimilarProduct
+					productId={productId}
+					categoryId={productDetail.categoryId}
+					data={data}
+				/>
 			</div>
-			<Feedback />
+			<div className="mt-4">
+				<Tabs color="primary" variant="bordered" size="md">
+					<Tab title="Feedback">
+						<Feedback />
+					</Tab>
+					<Tab title="Comment">
+						<Feedback />
+					</Tab>
+					<Tab title="Comments"></Tab>
+				</Tabs>
+			</div>
 		</section>
 	);
 }

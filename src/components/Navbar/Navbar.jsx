@@ -49,27 +49,32 @@ export default function Navigation() {
 	useEffect(() => {
 		const inputSearch = document.getElementById('input-search');
 		const boxSearch = document.getElementById('box-search');
-		inputSearch.addEventListener('focus', () => {
+
+		const handleFocus = () => {
 			boxSearch.classList.remove('hidden');
-		});
-		inputSearch.addEventListener('blur', () => {
-			boxSearch.classList.add('hidden');
-		});
-		return () => {
-			inputSearch.removeEventListener('focus', () => {
-				boxSearch.classList.remove('hidden');
-			});
-			inputSearch.removeEventListener('blur', () => {
-				boxSearch.classList.add('hidden');
-			});
 		};
-	});
+
+		const handleBlur = () => {
+			boxSearch.classList.add('hidden');
+		};
+
+		inputSearch.addEventListener('focus', handleFocus);
+		inputSearch.addEventListener('blur', handleBlur);
+
+		return () => {
+			inputSearch.removeEventListener('focus', handleFocus);
+			inputSearch.removeEventListener('blur', handleBlur);
+		};
+	}, []);
+
 	const handleLogout = () => {
 		removeToken();
 		navigate('auth/login');
 	};
 	const handleSearch = (e) => {
-		const filter = data.filter((item) => item.name.toLowerCase().includes(e.target.value));
+		const filter = data.filter((item) =>
+			item.name.toLowerCase().includes(e.target.value.toLowerCase())
+		);
 		setsearchList(filter);
 	};
 	return (
@@ -166,7 +171,7 @@ export default function Navigation() {
 									<div className="flex justify-between items-center ">
 										<div className="p-1">
 											<Link
-												to={_id}
+												to={`/${_id}`}
 												className="text-[11px] font-semibold block lowercase"
 											>
 												{name}
@@ -178,11 +183,13 @@ export default function Navigation() {
 												{formatMoney(price + 999)}đ
 											</del>
 										</div>
-										<img
-											src={image}
-											alt=""
-											className="w-10 h-10 border-[1px]"
-										/>
+										<Link>
+											<img
+												src={image}
+												alt=""
+												className="w-10 h-10 border-[1px]"
+											/>
+										</Link>
 									</div>
 									<hr />
 								</>

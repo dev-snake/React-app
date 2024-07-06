@@ -101,18 +101,19 @@ export default function OrderManagement() {
 							)}
 						</TableCell>
 						<TableCell>
+							{/* 4 : đã hủy  , 1  : đã xác nhận  , Chờ xác nhận */}
 							{order.status === 4 ? (
-								<Switch aria-label="Xác nhận" color="primary" isDisabled />
+								<Switch aria-label="Đã hủy" color="primary" isDisabled />
 							) : order.status === 1 ? (
 								<Switch
-									aria-label="Xác nhận"
+									aria-label="Đã Xác nhận"
 									color="primary"
 									isSelected
 									isDisabled
 								/>
 							) : (
 								<Switch
-									aria-label="Xác nhận"
+									aria-label="Chờ Xác nhận"
 									color="primary"
 									onChange={() => handleToogle(order.orderId)}
 								/>

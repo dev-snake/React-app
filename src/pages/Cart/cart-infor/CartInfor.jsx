@@ -21,6 +21,7 @@ function CartInfor() {
 		ward: '',
 		specificAddress: '',
 		voucher: JSON.parse(localStorage.getItem('voucher') || '[]')[0]?.discount || 0,
+		voucherId: JSON.parse(localStorage.getItem('voucher') || '[]')[0]?._id || '',
 		methodPayment: 'Thanh toán khi nhận hàng (COD)',
 		total: getTotalPrice(),
 		products: JSON.parse(localStorage.getItem('cartItems') || '[]')

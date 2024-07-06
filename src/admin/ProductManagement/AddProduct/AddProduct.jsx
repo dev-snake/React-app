@@ -15,7 +15,6 @@ export default function AddProduct() {
 		discount: 0,
 		categoryId: 0,
 		image: '',
-		quantityImported: 0,
 		variant: []
 	});
 	const [isLoading, setIsLoading] = useState(true);
@@ -53,10 +52,17 @@ export default function AddProduct() {
 	};
 	const handleSubmit = async () => {
 		console.log(state);
-		// if (state.name === '' || state.price === 0 || state.categoryId === 0) {
-		// 	toast.error('Vui lòng điền đầy đủ thông tin');
-		// 	return;
-		// }
+		if (
+			!state.name ||
+			!state.price ||
+			!state.discount ||
+			!state.categoryId ||
+			!state.image ||
+			!variant.length
+		) {
+			return toast.error('Vui lòng điền đầy đủ thông tin');
+		}
+
 		try {
 			await axios.post(API.PRODUCTS, { ...state, variant });
 			toast.success('Thêm sản phẩm thành công!');
@@ -66,7 +72,6 @@ export default function AddProduct() {
 				discount: 0,
 				categoryId: 0,
 				image: '',
-				quantityImported: 0,
 				variant: []
 			});
 			setVariant([{ code: '', color: '', quantity: 0, price: 0, image: '' }]);
@@ -77,7 +82,10 @@ export default function AddProduct() {
 
 	const addVariant = () => {
 		if (variant.length >= 5) return toast.error('Số lượng biến thể tối đa là 5');
-		setVariant([...variant, { code: '', color: '', quantity: 0, price: 0, image: '' }]);
+		setVariant([
+			...variant,
+			{ code: '', color: '', quantity: 0, price: 0, image: '', quantity_sold: 0 }
+		]);
 	};
 
 	const deleteVariant = (index) => {

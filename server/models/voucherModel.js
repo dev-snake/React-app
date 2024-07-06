@@ -9,7 +9,8 @@ const voucher = new Schema(
 		expiry_date: { type: Date, required: true },
 		usage_count: { type: Number, default: 0 },
 		max_uses: { type: Number, default: 0 },
-		applicable_amount: { type: Number, default: 0 }
+		applicable_amount: { type: Number, default: 0 },
+		voucherId: { type: String, unique: true }
 	},
 	{
 		timestamps: true
