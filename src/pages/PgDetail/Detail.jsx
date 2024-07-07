@@ -11,6 +11,7 @@ import Comments from './Comments/Comments';
 import TechInfor from './TechInfor/TechInfor';
 import SimilarProduct from './SimilarProduct/SimilarProduct';
 import Feedback from './Feedback/Feedback';
+import CommentsList from './CommentsList/CommentsList';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const [activeIndex, setActiveIndex] = useState(null);
@@ -175,7 +176,9 @@ export default function PageDetail() {
 					<Tab title="Comment">
 						<Comments />
 					</Tab>
-					<Tab title="Comments"></Tab>
+					<Tab title="Comments">
+						<CommentsList commentsList={productDetail.comments} />
+					</Tab>
 				</Tabs>
 			</div>
 		</section>

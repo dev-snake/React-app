@@ -42,7 +42,10 @@ class ProductsControllers {
 			const user = req.user;
 			const { productId, comments } = req.body;
 			const product = await productModel.findById(productId);
-			product.comments = [...product.comments, { userId: user._id, comments }];
+			product.comments = [
+				...product.comments,
+				{ userId: user._id, comments, fullname: user.fullname, date: new Date() }
+			];
 			await product.save();
 			return res.status(200).json({ message: 'Comment sent successfully' });
 		} catch (error) {

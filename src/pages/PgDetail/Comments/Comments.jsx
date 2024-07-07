@@ -8,7 +8,6 @@ import { config } from '../../../config/config';
 export default function Comments() {
 	const [comments, setComments] = useState('');
 	const { productId } = useParams();
-	console.log(productId);
 	const handleSendComment = () => {
 		if (!comments) {
 			toast.error('Vui lòng nhập bình luận !', { duration: 1000 });
@@ -22,7 +21,10 @@ export default function Comments() {
 		});
 		toast.promise(newComment, {
 			loading: 'Đang gửi bình luận',
-			success: 'Gửi bình luận thành công',
+			success: (res) => {
+				setComments('');
+				return 'Gửi bình luận thành công';
+			},
 			error: (err) => {
 				console.log(err);
 				return 'Gửi bình luận thất bại';
