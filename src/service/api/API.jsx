@@ -9,6 +9,7 @@ const API = {
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,
 	PROFILE: `${BASE_URL}/users/profile`,
+	SEND_COMMENT: `${BASE_URL}/products/send-comment`,
 	// API ORDERS :
 	ORDERS: `${BASE_URL}/orders`,
 	CREATE_ORDER: `${BASE_URL}/orders/create-order`,

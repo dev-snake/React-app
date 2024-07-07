@@ -37,5 +37,17 @@ class ProductsControllers {
 			return res.status(500).json(error.message);
 		}
 	}
+	async sendComment(req, res) {
+		try {
+			const user = req.user;
+			const { productId, comments } = req.body;
+			const product = await productModel.findById(productId);
+			product.comments = [...product.comments, { userId: user._id, comments }];
+			await product.save();
+			return res.status(200).json({ message: 'Comment sent successfully' });
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
 }
 module.exports = new ProductsControllers();

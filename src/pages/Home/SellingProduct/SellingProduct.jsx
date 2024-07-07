@@ -16,7 +16,6 @@ export default function SellingProduct() {
 			const filter = data.filter((product) =>
 				product.variant.reduce((acc, curr) => acc + curr.quantity_sold >= 5, 0)
 			);
-			console.log(filter);
 			setSellingProduct(filter);
 		}
 	}, [isLoading]);

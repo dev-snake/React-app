@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/ProductsControllers');
+const authenticate = require('../middlewares/authenticateToken');
+router.post('/send-comment', authenticate, productController.sendComment);
 router.delete('/:productId', productController.delete);
 router.put('/:productId', productController.update);
 router.post('/', productController.create);

@@ -1,6 +1,3 @@
-import TechInfor from './TechInfor/TechInfor';
-import SimilarProduct from './SimilarProduct/SimilarProduct';
-import Feedback from './Feedback/Feedback';
 import { Image, Chip, Button, Card, Tooltip, Tabs, Tab } from '@nextui-org/react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../Hooks/useFetch';
@@ -10,6 +7,10 @@ import { useEffect, useState } from 'react';
 import useCart from '../../Hooks/useCart';
 import { toast } from 'sonner';
 import { accessToken } from '../../utils/saveStatus';
+import Comments from './Comments/Comments';
+import TechInfor from './TechInfor/TechInfor';
+import SimilarProduct from './SimilarProduct/SimilarProduct';
+import Feedback from './Feedback/Feedback';
 export default function PageDetail() {
 	const { productId } = useParams();
 	const [activeIndex, setActiveIndex] = useState(null);
@@ -172,7 +173,7 @@ export default function PageDetail() {
 						<Feedback />
 					</Tab>
 					<Tab title="Comment">
-						<Feedback />
+						<Comments />
 					</Tab>
 					<Tab title="Comments"></Tab>
 				</Tabs>
