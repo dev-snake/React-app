@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { config } from '../../../config/config';
 export default function Comments() {
+	console.log('Comments');
 	const [comments, setComments] = useState('');
 	const { productId } = useParams();
 	const handleSendComment = () => {

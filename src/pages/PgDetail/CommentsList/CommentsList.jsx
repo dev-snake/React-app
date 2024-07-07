@@ -1,4 +1,4 @@
-import { Button, Textarea, Avatar } from '@nextui-org/react';
+import { Textarea, Avatar } from '@nextui-org/react';
 import formatDate from '../../../utils/formatDate';
 export default function CommentsList({ commentsList }) {
 	console.log(commentsList);

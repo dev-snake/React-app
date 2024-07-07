@@ -17,7 +17,7 @@ export default function PageDetail() {
 	const [activeIndex, setActiveIndex] = useState(null);
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const [productDetail, setProductDetail] = useState(null);
-	const { cartItems, addToCart } = useCart();
+	const { addToCart } = useCart();
 	const [variant, setVariant] = useState(null);
 	useEffect(() => {
 		if (!isLoading) {
