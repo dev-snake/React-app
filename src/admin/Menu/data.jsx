@@ -16,7 +16,7 @@ export const navList = [
 		label: 'Người dùng'
 	},
 	{
-		path: 'statistics',
-		label: 'Thống kê'
+		path: 'vouchers',
+		label: 'Voucher'
 	}
 ];
