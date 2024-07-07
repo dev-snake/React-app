@@ -18,6 +18,7 @@ const API = {
 	// API CATEGORIES :
 	CATEGORIES: `${BASE_URL}/categories`,
 	// API VOUCHERS :
-	VOUCHERS: `${BASE_URL}/vouchers`
+	VOUCHERS: `${BASE_URL}/vouchers`,
+	CREATE_VOUCHER: `${BASE_URL}/vouchers/create`
 };
 export { API };

@@ -10,15 +10,8 @@ class VoucherController {
 	}
 	async create(req, res) {
 		try {
-			const newVoucher = {
-				voucher_name: 'Giảm 500K',
-				voucher_code: 'GIAM500K',
-				description: 'Giảm 500k cho đơn hàng trên 2 triệu đồng',
-				discount: 500000,
-				expiry_date: new Date('2024-07-10')
-			};
-			const voucher = await voucherModel.create(newVoucher);
-			return res.status(201).json(voucher || {});
+			const voucher = await voucherModel.create(req.body);
+			return res.status(201).json(voucher);
 		} catch (error) {
 			return res.status(500).json(error.message);
 		}

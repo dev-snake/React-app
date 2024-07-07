@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import formatDate from '../../utils/formatDate';
 import { Button } from '@nextui-org/react';
+import { Link } from 'react-router-dom';
 export default function VoucherManagement() {
 	const { data, isLoading } = useFetch(API.VOUCHERS);
 	const [vouchers, setVouchers] = useState([]);
@@ -20,7 +21,9 @@ export default function VoucherManagement() {
 		<div className="p-3">
 			<div className="flex justify-between items-center">
 				<h1 className="font-semibold text-2xl">Quản lí vouchers</h1>
-				<Button color="primary">Tạo mã </Button>
+				<Button color="primary">
+					<Link to="create">Tạo mã</Link>
+				</Button>
 			</div>
 			<div className="mt-8 grid grid-cols-5 gap-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
 				{vouchers.map((voucher) => (
@@ -51,26 +54,6 @@ export default function VoucherManagement() {
 						</div>
 					</div>
 				))}{' '}
-				<div className="h-40 bg-white shadow-lg relative  flex justify-start gap-4">
-					<div className="bg-[#4c79e2] text-center text-white flex items-center justify-center w-10">
-						<span className="transform -rotate-90 text-[1rem]">GIAM500K</span>
-					</div>
-					<div className="w-full ">
-						<div className="flex">
-							<div>
-								<p className="text-lg font-semibold">Giảm 500k</p>
-								<p className="text-sm">HSD: 31/12/2021</p>
-							</div>
-							<div className="absolute right-0 p-2 bg-red-500 cursor-pointer">
-								<i className="fa-solid fa-xmark text-white "></i>
-							</div>
-						</div>
-						<div className="border-[1px] border-dotted mt-2"></div>
-						<div className="text-xs mt-2">Giảm 50.000₫ cho đơn hàng trên 500.000₫</div>
-						<div className="text-xs mt-2">Số lượng dùng : 10</div>
-						<div className="text-xs mt-2">Số lượng đã dùng : 10</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	);

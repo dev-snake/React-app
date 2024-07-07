@@ -28,6 +28,7 @@ const OrderManagement = lazy(() => import('../admin/OrderManagement/OrderManagem
 const OrderDetail = lazy(() => import('../admin/OrderManagement/OrderDetail/OrderDetail'));
 const ViewDetail = lazy(() => import('../pages/Profile/orders-history/view-detail/ViewDetail'));
 const VoucherManagement = lazy(() => import('../admin/VoucherManagement/VoucherManagement'));
+const CreateVoucher = lazy(() => import('../admin/VoucherManagement/CreateVoucher/CreateVoucher'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'vouchers',
 				element: <VoucherManagement />
+			},
+			{
+				path: 'vouchers/create',
+				element: <CreateVoucher />
 			}
 		]
 	},
