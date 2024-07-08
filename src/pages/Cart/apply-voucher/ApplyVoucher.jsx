@@ -25,6 +25,10 @@ export default function ApplyVoucher({ totalPrice, cartItems }) {
 		const EXPIRY_DATE = setVoucher.expiry_date;
 		const APPLICABLE_AMOUNT = setVoucher.applicable_amount;
 		const TOTAL_PRICE = +totalPrice.split('.').join('');
+		if (setVoucher.usage_count >= setVoucher.max_usage) {
+			toast.error('Mã giảm giá đã hết lượt sử dụng');
+			return;
+		}
 		if (TOTAL_PRICE < APPLICABLE_AMOUNT) {
 			toast.error('Đơn hàng không đủ điều kiện sử dụng Voucher');
 			return;
