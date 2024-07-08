@@ -25,6 +25,7 @@ import { useFetch } from '../../Hooks/useFetch';
 import { API } from '../../service/api/API';
 import { formatMoney } from '../../utils/formatNumber';
 import { toast } from 'sonner';
+import { jwtDecode } from 'jwt-decode';
 export default function Navigation() {
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const [searchList, setsearchList] = useState([]);
@@ -44,6 +45,12 @@ export default function Navigation() {
 			toast.loading('Đang tải dữ liệu');
 		} else {
 			toast.dismiss();
+		}
+		const decoded = jwtDecode(accessToken.token);
+		if (decoded.role === 1 && pathname === '/admin') {
+			navigate('/admin');
+		} else {
+			navigate('/');
 		}
 	}, [isLoading]);
 	useEffect(() => {
