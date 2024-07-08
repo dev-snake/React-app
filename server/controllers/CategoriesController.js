@@ -9,12 +9,12 @@ class CategoriesController {
 		}
 	}
 	async create(req, res) {
-		const newCategory = {
-			name: 'Dây cáp',
-			categoryId: 5
-		};
 		try {
-			const category = await categoryModel.create(newCategory);
+			const categoryLength = await categoryModel.find({}).countDocuments();
+			const category = await categoryModel.create({
+				name: req.body.name,
+				categoryId: categoryLength + 1
+			});
 			return res.status(201).json('Add category success!');
 		} catch (error) {
 			console.log(error);
