@@ -61,7 +61,11 @@ export default function CategoriesMangagement() {
 								<TableCell>{formatDate(category.createdAt)}</TableCell>
 								<TableCell>{formatDate(category.updatedAt)}</TableCell>
 								<TableCell className="flex gap-3">
-									<Button isIconOnly color="primary" variant="flat"></Button>
+									<Button isIconOnly color="primary" variant="flat">
+										<Link to={`${category.categoryId}/edit`}>
+											<i className="fa-regular fa-pen-to-square"></i>
+										</Link>
+									</Button>
 									<Button isIconOnly color="danger" variant="flat"></Button>
 								</TableCell>
 							</TableRow>

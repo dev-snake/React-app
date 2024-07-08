@@ -20,7 +20,16 @@ class CategoriesController {
 			console.log(error);
 		}
 	}
-	update(req, res) {}
+	async update(req, res) {
+		try {
+			const { categoryId } = req.params;
+			await categoryModel.findOneAndUpdate({ categoryId }, req.body, { new: true });
+			return res.status(200).json('Update category success!');
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json('Internal server error');
+		}
+	}
 	delete(req, res) {}
 }
 module.exports = new CategoriesController();

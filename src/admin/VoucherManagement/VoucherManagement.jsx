@@ -13,7 +13,6 @@ export default function VoucherManagement() {
 			toast.loading('Đang tải dữ liệu ...');
 		} else {
 			toast.dismiss();
-			console.log(data);
 			setVouchers(data);
 		}
 	}, [isLoading]);
@@ -26,8 +25,11 @@ export default function VoucherManagement() {
 				</Button>
 			</div>
 			<div className="mt-8 grid grid-cols-5 gap-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
-				{vouchers.map((voucher) => (
-					<div className="h-40 bg-white shadow-lg relative  flex justify-start gap-4">
+				{vouchers.map((voucher, index) => (
+					<div
+						className="h-40 bg-white shadow-lg relative  flex justify-start gap-4"
+						key={index}
+					>
 						<div className="bg-[#4c79e2] text-center text-white flex items-center justify-center w-10">
 							<span className="transform -rotate-90 text-[1rem]">
 								{voucher.voucher_code}

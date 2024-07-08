@@ -35,6 +35,7 @@ const CategoriesMangagement = lazy(() =>
 const CreateCategory = lazy(() =>
 	import('../admin/CategoriesManagement/CreateCategory/CreateCategory')
 );
+const EditCategory = lazy(() => import('../admin/CategoriesManagement/EditCategory/EditCategory'));
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'categories/create',
 				element: <CreateCategory />
+			},
+			{
+				path: 'categories/:categoryId/edit',
+				element: <EditCategory />
 			}
 		]
 	},
