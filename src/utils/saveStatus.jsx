@@ -15,6 +15,9 @@ const saveToken = (token, stateLogin) => {
 	};
 	return localStorage.setItem('token', JSON.stringify(saveInfor));
 };
+const decodeToken = (token) => {
+	return jwtDecode(token);
+};
 const removeToken = () => {
 	localStorage.removeItem('token');
 };
@@ -24,4 +27,4 @@ const isLoggedIn = () => {
 	if (!token) return false;
 	return token && !isTokenExpired(token);
 };
-export { saveToken, removeToken, isLoggedIn, isTokenExpired, accessToken };
+export { saveToken, removeToken, isLoggedIn, isTokenExpired, accessToken, decodeToken };

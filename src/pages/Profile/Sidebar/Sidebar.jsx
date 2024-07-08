@@ -1,5 +1,16 @@
 import { Link } from 'react-router-dom';
+import { accessToken, decodeToken } from '../../../utils/saveStatus';
+import { jwtDecode } from 'jwt-decode';
+import { useEffect, useState } from 'react';
 export default function Sidebar() {
+	const [user, setUser] = useState({ username: '', email: '' });
+	useEffect(() => {
+		const token = accessToken.token;
+		if (token) {
+			const user = decodeToken(token);
+			setUser(user);
+		}
+	}, []);
 	return (
 		<>
 			<div className="md:max-w-[360px] w-full max-sm:p-4">
@@ -8,11 +19,11 @@ export default function Sidebar() {
 					<p className="text-xl font-medium text-center"></p>
 					<div className="flex justify-between mt-4">
 						<p className="font-semibold">username:</p>
-						<p className="font-medium"></p>
+						<p className="font-medium">{user.username}</p>
 					</div>
 					<div className="flex justify-between">
 						<p className="font-semibold">email:</p>
-						<p className="font-medium"></p>
+						<p className="font-medium">{user.email}</p>
 					</div>
 					<div className="flex justify-between">
 						<p className="font-semibold">Point:</p>
