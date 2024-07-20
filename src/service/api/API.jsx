@@ -5,6 +5,8 @@ const API = {
 		DISTRICTS: 'https://vapi.vnappmob.com/api/province/district',
 		WARDS: 'https://vapi.vnappmob.com/api/province/ward'
 	},
+	// API AUTHENTICATION :
+	REFRESH_TOKEN: `${BASE_URL}/users/refresh_token`,
 	// API PRODUCTS :
 	PRODUCTS: `${BASE_URL}/products`,
 	USERS: `${BASE_URL}/users`,

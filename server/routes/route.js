@@ -9,6 +9,7 @@ const route = (app) => {
 	app.use('/categories', categoryRouter);
 	app.use('/products', productsRouter);
 	app.use('/users', usersRouter);
+
 	app.use('/', (req, res) => {
 		res.send('Hello World');
 	});

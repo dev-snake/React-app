@@ -8,9 +8,10 @@ const isTokenExpired = (token) => {
 		return true;
 	}
 };
-const saveToken = (token, stateLogin) => {
+const saveToken = (token, refreshToken, stateLogin) => {
 	const saveInfor = {
-		token: token,
+		token,
+		refreshToken,
 		isLoggedIn: stateLogin
 	};
 	return localStorage.setItem('token', JSON.stringify(saveInfor));

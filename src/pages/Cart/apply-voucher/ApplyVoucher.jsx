@@ -159,7 +159,7 @@ function FormVoucher({ data, applyVoucher }) {
 					Áp dụng
 				</Button>
 			</div>
-			<div className="mt-2 grid gap-2">
+			{/* <div className="mt-2 grid gap-2">
 				{data?.map((voucher, index) => (
 					<div className="border-[1px] p-1 rounded-lg flex gap-2" key={index}>
 						<div>
@@ -196,7 +196,7 @@ function FormVoucher({ data, applyVoucher }) {
 						</div>
 					</div>
 				))}
-			</div>
+			</div> */}
 		</Fragment>
 	);
 }

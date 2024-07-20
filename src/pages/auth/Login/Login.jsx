@@ -20,7 +20,7 @@ export default function Login() {
 		const hanldeLogin = async () => {
 			try {
 				const response = await axios.post(`${API.USERS}/login`, user);
-				saveToken(response.data.token, true);
+				saveToken(response.data.token, response.data.refreshToken, true);
 				toast.success('Đăng nhập thành công !', { duration: 1000 });
 				navigate('/');
 			} catch (error) {

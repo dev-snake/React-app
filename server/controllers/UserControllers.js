@@ -26,9 +26,12 @@ class UserController {
 				phonenumber: user.phonenumber,
 				...req.body
 			};
-			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+			const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
+			const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+				expiresIn: '7d'
+			});
 			const { password: pass, ...infoUser } = user;
-			return res.status(200).json({ infoUser, token });
+			return res.status(200).json({ infoUser, token, refreshToken });
 		} catch (error) {
 			return res.status(500).json('ERROR SERVER !!');
 		}
@@ -54,6 +57,29 @@ class UserController {
 			const { password, ...infoUser } = userInfor._doc;
 			if (!userInfor) return res.status(400).json('User không tồn tại !');
 			return res.status(200).json(infoUser);
+		} catch (error) {
+			return res.status(500).json('ERROR SERVER !!');
+		}
+	}
+	async refreshToken(req, res) {
+		try {
+			const user = req.user;
+			const { refreshToken } = req.body;
+			if (!refreshToken) return res.status(400).json('Token không tồn tại !');
+			jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+				if (err) return res.status(403).json('Token không hợp lệ !');
+				const payload = {
+					_id: user._id,
+					role: user.role,
+					email: user.email,
+					fullname: user.fullname,
+					phonenumber: user.phonenumber
+				};
+				const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+					expiresIn: '1m'
+				});
+				return res.status(200).json({ token });
+			});
 		} catch (error) {
 			return res.status(500).json('ERROR SERVER !!');
 		}

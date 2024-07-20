@@ -26,6 +26,7 @@ import { API } from '../../service/api/API';
 import { formatMoney } from '../../utils/formatNumber';
 import { toast } from 'sonner';
 import { jwtDecode } from 'jwt-decode';
+import instance from '../../utils/axiosConfig';
 export default function Navigation() {
 	const { data, isLoading } = useFetch(`${API.PRODUCTS}`);
 	const [searchList, setsearchList] = useState([]);
@@ -33,12 +34,13 @@ export default function Navigation() {
 	const { pathname } = useLocation();
 	const [path, setPath] = useState({ isPath: false, route: '/admin' });
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	useEffect(() => {
 		setPath({ isPath: pathname.startsWith(path.route), route: '/admin' });
 	}, [path.route, pathname]);
 	useEffect(() => {
 		if (accessToken.token && isTokenExpired(accessToken.token)) {
-			removeToken();
+			// removeToken();
 			navigate('auth/login');
 		}
 		if (isLoading) {
@@ -46,12 +48,13 @@ export default function Navigation() {
 		} else {
 			toast.dismiss();
 		}
-		const decoded = jwtDecode(accessToken.token);
-		if (decoded.role === 1 && pathname === '/admin') {
-			navigate('/admin');
-		} else {
-			navigate('/');
-		}
+
+		// const decoded = jwtDecode(accessToken.token);
+		// if (decoded.role === 1 && pathname === '/admin') {
+		// 	navigate('/admin');
+		// } else {
+		// 	navigate('/');
+		// }
 	}, [isLoading]);
 	useEffect(() => {
 		const inputSearch = document.getElementById('input-search');

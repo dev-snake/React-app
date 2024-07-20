@@ -3,5 +3,5 @@ export default function formatDate(date) {
 	const day = d.getDate();
 	const month = d.getMonth() + 1;
 	const year = d.getFullYear();
-	return `${day}/${month}/${year}`;
+	return `${year}/${month}/${day}`;
 }

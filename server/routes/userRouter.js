@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/UserControllers');
 const auththenticateToken = require('../middlewares/authenticateToken');
+router.post('/refresh_token', auththenticateToken, userController.refreshToken);
 router.get('/profile', auththenticateToken, userController.profile);
 router.post('/login', userController.login);
 router.post('/register', userController.register);

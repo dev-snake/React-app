@@ -15,7 +15,9 @@ export default function Sidebar() {
 		<>
 			<div className="md:max-w-[360px] w-full max-sm:p-4">
 				<div className="bg-white p-4 rounded-2xl w-full">
-					<p className="capitalize font-semibold text-2xl text-center">Profile</p>
+					<p className="capitalize font-semibold text-2xl text-center">
+						<i className="fa-solid fa-face-laugh-wink text-purple-500 text-3xl"></i>
+					</p>
 					<p className="text-xl font-medium text-center"></p>
 					<div className="flex justify-between mt-4">
 						<p className="font-semibold">username:</p>
